@@ -1,0 +1,70 @@
+%define name blueice-smart-datacenter
+%define version %{VERSION}
+%define release %{RELEASE}
+# Disable all post processing, including jar repacking
+%global __os_install_post %{nil}
+
+Name: %{name}
+Version: %{version}
+Release: %{release}
+
+Summary: Blueice Smart-Datacenter App
+Group: Development/Tools
+License: Bluice Inc.
+#Source: terminal_server.zip
+Packager: Blueice team <northstar@istuary.com>
+Requires: nginx
+Requires(pre): /usr/sbin/useradd /usr/bin/systemctl
+Requires(post): /usr/bin/systemctl
+Autoreq: 0
+Autoprov: 0
+
+%description
+Blueice Data Center Application
+
+%pre
+# Add new host_ip under /data
+echo $(ip route | grep src | awk '{ print $9 }') > /data/host_ip
+# Add the "blueice" user
+getent group blueice >/dev/null || groupadd -g 1007 -r blueice
+getent passwd blueice >/dev/null || \
+  useradd -r -u 1007 -g blueice -s /sbin/nologin \
+      -d /opt/blueice -c "Blueice" blueice
+      exit 0
+%post
+/usr/bin/systemctl daemon-reload
+/usr/bin/systemctl enable smart-datacenter
+#echo > /data/sw/version
+#rpm -qa | grep blueice-smart-datacenter > /data/sw/version
+echo %{name}-%{release}-%{version} > /data/sw/version
+
+%preun
+if [ $1 = 0 ]; then
+        /usr/bin/systemctl stop smart-datacenter > /dev/null 2>&1
+        /usr/bin/systemctl disable smart-datacenter
+fi       
+
+
+%postun
+if [ $1 = 0 ]; then
+        /usr/bin/systemctl daemon-reload
+fi
+
+%files
+%defattr(-,blueice,blueice,-)
+/opt/blueice/
+/opt/blueice/*
+/usr/share/nginx/html/smart-datacenter-ui
+/usr/share/nginx/html/smart-datacenter-ui/*
+#/usr/share/nginx/html/smart-datacenter-ml-ui
+#/usr/share/nginx/html/smart-datacenter-ml-ui/*
+/data
+/data/sw/
+/data/sw/*
+#%config(noreplace) /data/sw/southwest.conf
+#%config(noreplace) /data/sw/log4j.xml
+#%config(noreplace) /opt/blueice/smart-datacenter/conf/southwest.conf
+#%config(noreplace) /opt/blueice/smart-datacenter/conf/log4j.xml
+%config(noreplace) /opt/blueice/smart-datacenter/conf/custom.conf
+/preserve/logs
+%attr(-,root,root) /usr/lib/systemd/system/smart-datacenter.service

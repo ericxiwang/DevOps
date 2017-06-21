@@ -1,0 +1,14 @@
+[Unit]
+Description=BlueIce smart-datacenter application
+After=network.target remote-fs.target nss-lookup.target nginx.target
+
+[Service]
+Type=simple
+PIDFile=/run/smart-datacenter.pid
+ExecStart=/opt/blueice/smart-datacenter/bin/server production
+User=blueice
+Group=blueice
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target
