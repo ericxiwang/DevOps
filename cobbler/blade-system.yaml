@@ -1,0 +1,229 @@
+---
+- name: van-dell-s1
+  hostname: van-dell-s1
+  disks: sda
+  interfaces:
+    - name: p2p1
+      type: static
+      primary: true
+      mac: 28:F1:0E:94:1D:55
+      ip: 10.9.52.31
+      gateway: 10.9.52.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: p2p1.1051
+      type: bridge_slave
+      interface-master: br1051
+      primary: false
+    - name: br1051
+      type: bridge
+      ip: 10.9.51.31
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.51.0/24:10.0.9.51.1" 
+- name: van-dell-s2
+  hostname: van-dell-s2
+  disks: sda
+  interfaces:
+    - name: p2p1
+      type: static
+      primary: true
+      mac: 28:F1:0E:94:1D:62
+      ip: 10.9.52.32
+      gateway: 10.9.52.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: p2p1.1051
+      type: bridge_slave
+      interface-master: br1051
+      primary: false
+    - name: br1051
+      type: bridge
+      ip: 10.9.51.32
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.51.0/24:10.0.9.51.1" 
+- name: van-dell-s3
+  hostname: van-dell-s3
+  disks: sda
+  interfaces:
+    - name: p2p1
+      type: static
+      primary: true
+      mac: 28:F1:0E:94:1D:6F
+      ip: 10.9.52.33
+      gateway: 10.9.52.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: p2p1.1051
+      type: bridge_slave
+      interface-master: br1051
+      primary: false
+    - name: br1051
+      type: bridge
+      ip: 10.9.51.33
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.51.0/24:10.0.9.51.1" 
+- name: van-dell-s4
+  hostname: van-dell-s4
+  disks: sda
+  interfaces:
+    - name: p2p1
+      type: static
+      primary: true
+      mac: 28:F1:0E:94:1D:7C
+      ip: 10.9.52.34
+      gateway: 10.9.52.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: p2p1.1051
+      type: bridge_slave
+      interface-master: br1051
+      primary: false
+    - name: br1051
+      type: bridge
+      ip: 10.9.51.34
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.51.0/24:10.0.9.51.1" 
+- name: van-dell-s5
+  hostname: van-dell-s5
+  disks: sda
+  interfaces:
+    - name: p2p1
+      type: static
+      primary: true
+      mac: 28:F1:0E:94:1D:89
+      ip: 10.9.52.35
+      gateway: 10.9.52.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: p2p1.1051
+      type: bridge_slave
+      interface-master: br1051
+      primary: false
+    - name: br1051
+      type: bridge
+      ip: 10.9.51.35
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.51.0/24:10.0.9.51.1" 
+- name: van-dell-s6
+  hostname: van-dell-s6
+  disks: sda
+  interfaces:
+    - name: p2p1
+      type: static
+      primary: true
+      mac: 28:F1:0E:94:1D:96
+      ip: 10.9.52.36
+      gateway: 10.9.52.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: p2p1.1051
+      type: bridge_slave
+      interface-master: br1051
+      primary: false
+    - name: br1051
+      type: bridge
+      ip: 10.9.51.36
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.51.0/24:10.0.9.51.1" 
+- name: van-dell-s7
+  hostname: van-dell-s7
+  disks: sda
+  interfaces:
+    - name: p2p1
+      type: static
+      primary: true
+      mac: 28:F1:0E:94:1D:A3
+      ip: 10.9.52.37
+      gateway: 10.9.52.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: p2p1.1051
+      type: bridge_slave
+      interface-master: br1051
+      primary: false
+    - name: br1051
+      type: bridge
+      ip: 10.9.51.37
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.51.0/24:10.0.9.51.1" 
+    - name: p2p1.1050
+      type: bridge_slave
+      interface-master: br1050
+      primary: false
+    - name: br1050
+      type: bridge
+      ip: 10.9.50.27
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.50.0/24:10.0.9.50.1" 
+- name: van-dell-s8
+  hostname: van-dell-s8
+  disks: sda
+  interfaces:
+    - name: p2p1
+      type: static
+      primary: true
+      mac: 28:F1:0E:94:1D:B0
+      ip: 10.9.52.38
+      gateway: 10.9.52.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: p2p1.1051
+      type: bridge_slave
+      interface-master: br1051
+      primary: false
+    - name: br1051
+      type: bridge
+      ip: 10.9.51.38
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.51.0/24:10.0.9.51.1" 
+    - name: p2p1.1050
+      type: bridge_slave
+      interface-master: br1050
+      primary: false
+    - name: br1050
+      type: bridge
+      ip: 10.9.50.28
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.50.0/24:10.0.9.50.1" 
+- name: test-1
+  hostname: test-slot-1
+  disks: sda
+  interfaces:
+    - name: enp0s3
+      type: static
+      primary: true
+      mac: 08:00:27:84:AA:C8
+      ip: 192.168.57.5
+      gateway: 192.168.57.1
+      subnet: 255.255.255.0
+      name-servers: 8.8.8.8
+    - name: enp0s3.40
+      type: bridge_slave
+      interface-master: br40 
+      primary: false
+    - name: br40
+      type: bridge
+      ip: 10.0.60.32
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.0.60.0/24:10.0.60.1" 
+    - name: enp0s3.1052
+      type: bridge_slave
+      interface-master: br1052 
+      primary: false
+    - name: br1052
+      type: bridge
+      ip: 10.9.60.32
+      subnet: 255.255.255.0
+      primary: false
+      static-routes: "10.9.60.0/24:10.9.60.1" 
