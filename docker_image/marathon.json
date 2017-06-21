@@ -1,0 +1,67 @@
+{
+  "id": "/blueice-terminal-v2-van-prod-tenant-1",
+  "instances": 1,
+  "cpus": 1,
+  "mem": 8192,
+  "disk": 4096,
+  "backoffSeconds": 1,
+  "backoffFactor": 1.15,
+  "maxLaunchDelaySeconds": 3600,
+  "env": {
+    "TENANT_ID": "tenant-1",
+    "ST_KAFKA_SERVERS": "10.0.50.33:9092,10.0.50.34:9092,10.0.50.35:9092",
+    "ST_ZOOKEEPER_SERVERS": "10.0.50.33:2181,10.0.50.34:2181,10.0.50.35:2181"
+  },
+  "container": {
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "cassandradata",
+        "mode": "RW",
+        "persistent": {
+          "size": 1000
+        }
+      },
+      {
+        "containerPath": "/var/lib/cassandra/",
+        "hostPath": "cassandradata",
+        "mode": "RW"
+      }
+    ],
+    "docker": {
+      "image": "ericxiwang/smart-terminal:devel-1230-15",
+      "forcePullImage": true,
+      "privileged": false,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp",
+          "servicePort": 10002
+        },
+        {
+          "containerPort": 1883,
+          "protocol": "tcp",
+          "servicePort": 10005
+        }
+      ],
+      "network": "BRIDGE"
+    }
+  },
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 0,
+    "maximumOverCapacity": 0
+  },
+  "portDefinitions": [
+    {
+      "port": 10002,
+      "protocol": "tcp",
+      "labels": {}
+    },
+    {
+      "port": 10005,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ],
+  "requirePorts": false
+}

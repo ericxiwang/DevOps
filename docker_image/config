@@ -1,0 +1,12 @@
+{
+        "auths": {
+                "http://hub.docker.com": {
+                        "auth": "ZXJpY3hpd2FuZzpwQHNzdylyZA==",
+                        "email": "gowest.wang@gmail.com"
+                },
+                "https://index.docker.io/v1/": {
+                        "auth": "ZXJpY3hpd2FuZzpwMnNzdzByZA=="
+                }
+        }
+}
+
