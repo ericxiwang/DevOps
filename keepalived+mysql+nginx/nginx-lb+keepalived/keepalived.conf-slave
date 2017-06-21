@@ -1,0 +1,30 @@
+! Configuration File for keepalived
+
+global_defs {
+   router_id nginx-slave
+}
+
+vrrp_script check_nginx {
+    #script "/data/script/check_nginx.sh"
+    interval 2
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface eno1
+    virtual_router_id 51
+    # low priority
+    priority 80
+    advert_int 1
+    nopreempt
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        10.0.50.200
+    }
+    track_script {
+        check_nginx
+    }
+}

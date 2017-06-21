@@ -1,0 +1,32 @@
+! Configuration File for keepalived
+global_defs {
+   router_id mysql-2
+}
+vrrp_script chk_mysqld {
+    script "/etc/keepalived/check_mysqld.sh"
+    interval 5
+}
+vrrp_instance VI_1 {
+    state BACKUP
+    interface eth0
+    virtual_router_id 55
+
+    #Can be usefull for strongly filtered env.
+    mcast_src_ip 10.9.51.70
+
+    # Highest priority value takes the MASTER role
+    # and the virtual IP (default value is 100).
+    priority 80
+    advert_int 1
+    nopreempt
+    authentication {
+        auth_type PASS
+        auth_pass istuary-1118
+    }
+    virtual_ipaddress {
+        10.9.51.210
+    }
+    track_script {
+       chk_mysqld
+    }
+}
