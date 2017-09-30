@@ -1,0 +1,15 @@
+- name: install mysql rpm  repo
+  yum:
+        name: http://10.0.10.31/blueice-thirdparty/mysql57-community-release-el7-11.noarch.rpm
+        state: present
+- name: install mysql-server
+  yum:
+        name: mysql-server
+        state: present
+- name: start mysqld
+  service:
+        name: mysqld
+        state: started
+- name: init db
+  shell: /bin/bash /tmp/init_db.sh
+

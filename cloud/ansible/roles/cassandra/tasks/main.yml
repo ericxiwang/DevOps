@@ -1,0 +1,12 @@
+- name: install cassandra repro
+  copy:
+        src: datastax.repo
+        dest: /etc/yum.repos.d/datastax.repo
+- name: install cassandra package
+  yum:
+        name: datastax-ddc
+        state: present
+- name: install jemalloc
+  yum:
+        name: http://10.0.10.31/blueice-thirdparty/jemalloc-3.6.0-1.el7.x86_64.rpm
+        state: present

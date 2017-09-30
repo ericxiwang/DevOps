@@ -1,0 +1,7 @@
+- hosts: terminal
+  remote_user: root
+  roles:
+    - selinux
+    - nginx
+    - cassandra 
+    - mysql

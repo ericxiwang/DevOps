@@ -1,0 +1,12 @@
+- name: disable selinx
+  copy:
+        src: config 
+        dest: /etc/selinux/config
+
+- name: stop firewalld
+  shell:
+        systemctl stop firewalld
+
+- name: disable firewalld       
+  shell:
+        systemctl disable firewalld

@@ -1,0 +1,13 @@
+- name: copy nginx rpm to server
+  copy: 
+        src: nginx-1.13.2-1.el7.ngx.x86_64.rpm
+        dest: /tmp/nginx-1.13.2-1.el7.ngx.x86_64.rpm
+- name: install nginx package
+  yum:
+        name: /tmp/nginx-1.13.2-1.el7.ngx.x86_64.rpm
+        state: present
+- name: enable nginx
+  service:
+        name: nginx
+        state: started
+        enabled: yes

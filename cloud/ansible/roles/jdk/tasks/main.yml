@@ -1,0 +1,4 @@
+- name: install jdk
+  shell:
+        yum install -y http://10.0.10.31:/blueice-thirdparty/jdk-8u121-linux-x64.rpm
+

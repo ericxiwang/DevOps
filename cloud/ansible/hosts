@@ -1,0 +1,83 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+# Ex 1: Ungrouped hosts, specify before any group headers.
+
+## green.example.com
+## blue.example.com
+## 192.168.100.1
+## 192.168.100.10
+
+# Ex 2: A collection of hosts belonging to the 'webservers' group
+
+## [webservers]
+## alpha.example.org
+## beta.example.org
+## 192.168.1.100
+## 192.168.1.110
+
+# If you have multiple hosts following a pattern you can specify
+# them like this:
+
+## www[001:006].example.com
+
+# Ex 3: A collection of database servers in the 'dbservers' group
+
+## [dbservers]
+## 
+## db01.intranet.mydomain.net
+## db02.intranet.mydomain.net
+## 10.25.1.56
+## 10.25.1.57
+
+# Here's another example of host ranges, this time there are no
+# leading 0s:
+
+## db-[99:101]-node.example.com
+[kafka_nodes]
+zk-1 ansible_ssh_user=bi_deploy ansible_host=10.9.51.54
+zk-2 ansible_ssh_user=bi_deploy ansible_host=10.9.51.55
+zk-3 ansible_ssh_user=bi_deploy ansible_host=10.9.51.56
+
+[zookeeper_nodes]
+zk-1 ansible_ssh_user=bi_deploy ansible_host=10.9.51.54
+zk-2 ansible_ssh_user=bi_deploy ansible_host=10.9.51.55
+zk-3 ansible_ssh_user=bi_deploy ansible_host=10.9.51.56
+
+[cassandra_nodes]
+cassandra-1 ansible_ssh_user=bi_deploy ansible_host=10.9.51.75
+cassandra-2 ansible_ssh_user=bi_deploy ansible_host=10.9.51.76
+cassandra-3 ansible_ssh_user=bi_deploy ansible_host=10.9.51.77
+
+[smart_terminal]
+smart-terminal-1 ansible_ssh_user=bi_deploy ansible_host=10.9.51.64
+smart-terminal-2 ansible_ssh_user=bi_deploy ansible_host=10.9.51.65
+
+[smart_datacenter]
+smart-datacenter-1 ansible_ssh_user=bi_deploy ansible_host=10.9.51.61
+smart-datacenter-2 ansible_ssh_user=bi_deploy ansible_host=10.9.51.62
+smart-datacenter-3 ansible_ssh_user=bi_deploy ansible_host=10.9.51.63
+
+[spark_nodes]
+spark-1 ansible_ssh_user=bi_deploy ansible_host=10.9.51.81
+spark-2 ansible_ssh_user=bi_deploy ansible_host=10.9.51.82
+spark-3 ansible_ssh_user=bi_deploy ansible_host=10.9.51.83
+
+
+[load_balancing_node]
+load-balancing-1 ansible_ssh_user=bi_deploy ansible_host=10.9.50.10
+
+[mysql_service]
+blueice-mysql-1 ansible_ssh_user=bi_deploy ansible_host=10.9.51.70
+blueice-mysql-2 ansible_ssh_user=bi_deploy ansible_host=10.9.51.71
+[test]
+ansible-client ansible_ssh_user=bi_deploy ansible_host=10.9.51.110
+[terminal]
+ansible-terminal ansible_ssh_user=bi_deploy ansible_host=10.9.51.120
