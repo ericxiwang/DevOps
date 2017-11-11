@@ -6,6 +6,17 @@
 ###########################################################
 ###########################################################
 set -x
+ENV_OS=$(lsb_release -r -s)
+
+if [ $ENV_OS == '14.04' ];then
+    echo "version is correct 14"
+elif [ $ENV_OS == '16.04' ]; then
+    echo "version is correct 16"
+else
+    exit 1
+fi
+    #statements
+
 ENV_inst_path='/tmp'
 ENV_USER=awrun
 ENV_GROUP=awrun
@@ -55,7 +66,7 @@ echo "===== check all package are avaliable in folder"
 
 if [ ! -f $ENV_inst_path/$ENV_cuda ];then
     #wget -p $ENV_inst_path https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1404-8-0-local-ga2_8.0.61-1_amd64-deb
-    wget  https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1404-8-0-local-ga2_8.0.61-1_amd64-deb
+    wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1404-8-0-local-ga2_8.0.61-1_amd64-deb
 fi
 
 if [ ! -f $ENV_inst_path/$ENV_cudnn ];then
@@ -75,7 +86,8 @@ fi
 
 if [ ! -f $ENV_inst_path/$ENV_mysql ];then
     echo "download mysql dev"
-    wget -p $ENV_inst_path http://dev.mysql.com/get/mysql-apt-config_0.8.8-1_all.deb
+    #wget -p $ENV_inst_path http://dev.mysql.com/get/mysql-apt-config_0.8.8-1_all.deb
+    wget http://dev.mysql.com/get/mysql-apt-config_0.8.8-1_all.deb
 
 fi
 
