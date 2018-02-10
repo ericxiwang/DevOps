@@ -1,0 +1,44 @@
+GUI               = false # Enable/Disable GUI
+RAM               = 8192   # Default memory size in MB
+DISK              = '50GB'
+CPU               = 4
+# Network configuration
+
+NETWORK           = "10.16.3."
+NETMASK           = "255.255.255.0"
+
+# Default Virtualbox .box
+# See: https://wiki.debian.org/Teams/Cloud/VagrantBaseBoxes
+BOX               = 'ubuntu/xenial64'
+
+
+HOSTS = {
+   "server_1" => [NETWORK+"211", RAM, GUI, BOX, DISK, CPU],
+   "server_2" => [NETWORK+"212", RAM, GUI, BOX, DISK, CPU],
+}
+
+
+
+# ---- Vagrant configuration ----
+
+Vagrant.configure(2) do |config|
+  HOSTS.each do | (name, cfg) |
+    ipaddr, ram, gui, box, disk, cpu = cfg
+
+    config.vm.define name do |machine|
+      machine.vm.box   = box
+      machine.disksize.size = disk
+      #machine.vm.guest = :debian
+
+      machine.vm.provider "virtualbox" do |vbox|
+        vbox.gui    = gui
+        vbox.memory = ram
+        vbox.cpus    = cpu
+        vbox.name = name
+      end
+
+      #machine.vm.hostname = name
+      machine.vm.network 'public_network', bridge: "eno1", ip: ipaddr, netmask: NETMASK
+      machine.ssh.forward_agent = true
+    end
+  end # HOSTS-each
