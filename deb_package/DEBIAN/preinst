@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+case "$1" in
+        install)
+        #create user and group when first time installation
+        getent group awrun >/dev/null || groupadd -g 1007 -r awrun
+        getent passwd awrun >/dev/null || \
+        useradd -r -u 1007 -g awrun -s /sbin/nologin \
+        -d /tmp -c "awrun" awrun
+        ;;
+        update|abort-upgrade)
+        echo "just update"
+        ;;
+esac
+exit 0

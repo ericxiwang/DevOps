@@ -1,0 +1,27 @@
+#!/bin/sh
+set -x
+
+echo "======= add related folders ======="
+mkdir -p /data/images/uploaded
+mkdir -p /data/images/camera
+mkdir -p /data/images/captioned
+mkdir -p /data/images/detected
+mkdir -p /data/images/meters/uploaded
+mkdir -p /data/videos/camera
+mkdir -p /data/videos/uploaded
+mkdir -p /data/videos/captioned
+mkdir -p /data/videos/searched
+mkdir -p /data/models
+mkdir -p /data/sw
+mkdir -p /data/fonts
+mkdir -p /preserve/logs
+mkdir -p /usr/share/nginx/html
+
+echo "======= grant access =======right"
+chown -R awrun:awrun /data
+chown -R awrun:awrun /preserve
+chown -R awrun:awrun /opt/server
+chmod a+x -R /opt/server
+
+echo "======= set systemd ======="
+cp /opt/server/conf/server.service /lib/systemd/system/.

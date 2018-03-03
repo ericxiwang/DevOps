@@ -1,0 +1,7 @@
+Source:Awakedata
+Package: Awakedata-server
+Version: server_version
+Section: utils
+Architecture: amd64
+Maintainer: Xi Wang <xi.wang@xsight.ai>
+Description: Awakedata Vison Analysis System
