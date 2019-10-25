@@ -1,0 +1,4 @@
+zk_follower_port: 2888
+zk_election_port: 3888
+zk_data: "/opt/data"
+zk_client_port: 2181

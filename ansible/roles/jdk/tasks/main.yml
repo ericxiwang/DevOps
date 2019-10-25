@@ -1,0 +1,9 @@
+- name: copy jdk rpm package
+  copy:
+        src: jdk-8u211-linux-x64.rpm
+        dest: /tmp/jdk-8u211-linux-x64.rpm
+- name: install jdk
+  yum:
+        name: /tmp/jdk-8u211-linux-x64.rpm
+        state: present
+                

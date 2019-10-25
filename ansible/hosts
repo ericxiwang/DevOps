@@ -1,0 +1,26 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+[kafka]
+node-1 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.110 id=1
+node-2 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.111 id=2
+node-3 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.112 id=3
+[zookeeper]
+node-1 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.110 my_id=1
+node-2 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.111 my_id=2
+node-3 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.112 my_id=3
+
+
+
+[cassandra]
+node-1 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.110
+node-2 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.111
+node-3 ansible_ssh_user=root ansible_ssh_private_key_file=/etc/ansible/ssh_keys/id_rsa ansible_host=192.168.0.112
+

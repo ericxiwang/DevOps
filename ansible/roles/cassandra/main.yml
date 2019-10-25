@@ -1,0 +1,8 @@
+- name: install cassandra repro
+  copy:
+        src: datastax.repo
+        dest: /etc/yum.repos.d/datastax.repo
+- name: install cassandra package
+  yum:
+        name: datastax-ddc
+        state: present

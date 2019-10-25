@@ -1,0 +1,4 @@
+- hosts: kafka
+  remote_user: root
+  roles:
+    - kafka

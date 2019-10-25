@@ -1,0 +1,31 @@
+#- name: copy kafka/zookeeper to node
+#  copy:
+#          src: kafka_2.10-0.10.2.1
+#          dest: /opt
+
+- name: create data folder
+  file:
+    path: '{{ zk_data }}'
+    state: directory
+    mode: '0755'
+- name: create my_id for each node
+  template:
+    src: myid.j2
+    dest: '{{ zk_data }}/myid'
+
+- name: copy zookeeper conf to each mode
+  template: 
+    src: zookeeper.properties.j2 
+    dest: /opt/kafka_2.10-0.10.2.1/config/zookeeper.properties
+
+- name: copy kafka conf to each mode
+  template:
+    src: server.properties.j2
+    dest: /opt/kafka_2.10-0.10.2.1/config/server.properties
+
+- name: start zookeeper cluster
+  shell: /opt/kafka_2.10-0.10.2.1/bin/zookeeper-server-start.sh -daemon /opt/kafka_2.10-0.10.2.1/config/zookeeper.properties
+
+- name: start kafka cluster
+  shell: bash  /opt/kafka_2.10-0.10.2.1/bin/kafka-server-start.sh -daemon /opt/kafka_2.10-0.10.2.1/config/server.properties
+

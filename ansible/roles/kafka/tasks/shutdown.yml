@@ -1,0 +1,5 @@
+- name: start zookeeper cluster
+  shell: /opt/kafka_2.10-0.10.2.1/bin/kafka-server-stop.sh
+
+- name: start kafka cluster
+  shell: bash  /opt/kafka_2.10-0.10.2.1/bin/zookeeper-server-stop.sh

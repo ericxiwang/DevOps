@@ -1,0 +1,10 @@
+- name: copy nginx_tar_gz to client
+  copy: src=nginx-1.13.2.tar.gz dest=/tmp/nginx-1.13.2.tar.gz
+- name: copy install_shell to client
+  copy: src=install_nginx.sh dest=/tmp/install_nginx.sh
+- name: install nginx
+  shell: /bin/bash /tmp/install_nginx.sh
+- name: set systemd
+  copy: src=nginx.service dest=/usr/lib/systemd/system/nginx.service
+- name: start nginx
+  systemd: state=started name=nginx
