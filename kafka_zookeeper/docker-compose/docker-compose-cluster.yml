@@ -1,0 +1,90 @@
+version: '3'
+services:
+    zookeeper-1:
+        image: ericxiwang/kafka-zookeeper:latest
+        container_name: zookeeper-1
+        env_file:
+          - env-cluster.env
+        environment:
+          - CLUSTER_NAME=zookeeper
+          - MY_ID=1
+          - clientPort=2181
+        ports:
+          - 2181:2181
+        #  - 2888:2888
+        #  - 3888:3888   
+    zookeeper-2:
+        image: ericxiwang/kafka-zookeeper:latest
+        container_name: zookeeper-2
+        env_file:
+          - env-cluster.env
+        environment:
+          - CLUSTER_NAME=zookeeper
+          - MY_ID=2
+          - clientPort=2182
+        ports:
+          - 2182:2181
+        #  - 2889:2888
+        #  - 3889:3888
+    zookeeper-3:
+        image: ericxiwang/kafka-zookeeper:latest
+        container_name: zookeeper-3
+        env_file:
+          - env-cluster.env
+        environment:
+          - CLUSTER_NAME=zookeeper
+          - MY_ID=3
+          - clientPort=2183
+        ports:
+          - 2183:2181
+        #  - 2890:2888
+        #  - 3890:3888
+    kafka-1:
+        image: ericxiwang/kafka-zookeeper:latest
+        container_name: kafka-1
+        env_file:
+          - env-cluster.env
+        ports:
+          - "9092:9092"
+        depends_on:
+          - zookeeper-1
+        links:
+          - zookeeper-1
+          - zookeeper-2
+          - zookeeper-3
+        environment:
+          - CLUSTER_NAME=kafka
+          - BROKER_ID=1
+    kafka-2:
+        image: ericxiwang/kafka-zookeeper:latest
+        container_name: kafka-2
+        env_file:
+          - env-cluster.env
+        ports:
+          - "9093:9092"
+        depends_on:
+          - zookeeper-1
+        links:
+          - zookeeper-1
+          - zookeeper-2
+          - zookeeper-3
+        environment:
+          - CLUSTER_NAME=kafka
+          - BROKER_ID=2
+    kafka-3:
+        image: ericxiwang/kafka-zookeeper:latest
+        container_name: kafka-3
+        env_file:
+          - env-cluster.env
+        ports:
+          - "9094:9092"
+        depends_on:
+          - zookeeper-1
+        links:
+          - zookeeper-1
+          - zookeeper-2
+          - zookeeper-3
+        environment:
+          - CLUSTER_NAME=kafka
+          - BROKER_ID=3
+

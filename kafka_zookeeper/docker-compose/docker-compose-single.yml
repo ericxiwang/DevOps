@@ -1,0 +1,24 @@
+version: '3'
+services:
+    zookeeper-1:
+        image: ericxiwang/kafka-zookeeper:latest
+        container_name: zookeeper-1
+        ports:
+            - "2181:2181"
+        environment:
+            - CLUSTER_NAME=zookeeper
+            - IS_CLUSTER=False
+    kafka-1:
+        image: ericxiwang/kafka-zookeeper:latest
+        container_name: kafka-1
+        env_file:
+          - env-single.env
+        ports:
+          - "9092:9092"
+        depends_on:
+          - zookeeper-1
+        links:
+          - zookeeper-1
+        environment:
+          - CLUSTER_NAME=kafka
+          - IS_CLUSTER=False
