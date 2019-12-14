@@ -12,7 +12,7 @@ services:
         ports:
           - 2181:2181
         #  - 2888:2888
-        #  - 3888:3888   
+        #  - 3888:3888
     zookeeper-2:
         image: ericxiwang/kafka-zookeeper:latest
         container_name: zookeeper-2
@@ -87,4 +87,16 @@ services:
         environment:
           - CLUSTER_NAME=kafka
           - BROKER_ID=3
+    database:
+        image: mysql:5.7
+        container_name: mysql_db
+        environment:
+          MYSQL_DATABASE: 'test_db'
+          MYSQL_USER: 'admin'
+          MYSQL_PASSWORD: 'password'
+          MYSQK_ROOT_PASSWORD: 'password'
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        ports:
+          - 3306:3306
+
 
