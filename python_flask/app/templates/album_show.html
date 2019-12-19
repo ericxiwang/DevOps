@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for each_images in all_pics %}
+{{ each_images.img_uuid }}
+<br/>
+{{ each_images.img_description }}
+<br/>
+{{ each_images.img_album }}
+{% endfor %}
+</body>
+</html>

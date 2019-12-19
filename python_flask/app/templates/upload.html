@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block index %}
+    <h1>Please Upload file here</h1>
+    <form action="" enctype='multipart/form-data' method='POST'>
+        <input type="file" multiple="" name="file[]">
+        <select name="img_album">
+
+            {% for each_album in image_album %}
+            <option value='{{ each_album.album_name }}'>{{ each_album.album_name }}</option>
+            {% endfor %}
+  </select>
+        <input type="submit" value="upload">
+    </form>
+</body>
+</html>
+{% endblock %}

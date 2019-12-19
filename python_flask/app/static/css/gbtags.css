@@ -1,0 +1,54 @@
+/* 课程：扁平风格手风琴式菜单效果 */
+
+body {
+    width: 450px;
+    margin: 100px auto;
+    text-align: center;
+    font-family: 'microsoft yahei',Arial,sans-serif;
+    background: #222222;
+}
+
+h1 { 
+	border-bottom: 1px solid #555555; 
+	color:#fff;  padding-bottom: 20px; 
+	font-size: 28px;
+	font-weight:normal;
+	margin-bottom: 30px;
+}
+
+dd {
+    margin: 0;
+    padding: 20px 0;
+    font-size: 14px;
+    background: #fbfbfb;
+    padding: 10px 15px;
+    text-align: left;
+}
+
+dt {
+    cursor: pointer;
+    font-size : 18px;
+    line-height: 23px;
+    background: #EB852A;
+
+    border-top: 1px solid #EFEFEF;
+	box-shadow: 0 1px 0 #FFFFFF;
+    font-weight: 400;
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+}
+
+dt:first-child { border-top: none; }
+dt:nth-last-child(2) { border-bottom: none; }
+
+.hidden { display: none;}
+
+footer{
+	margin: 50px;
+}
+
+footer p{
+	color: #dd4814;
+	text-decoration: none;
+}
