@@ -33,7 +33,7 @@ def user_login():
 
             return redirect(url_for('index'))
         else:
-            return render_template('login.html', error_code="密码错误")
+            return render_template('login.html', error_code="password is wrong")
 
     else:
         return render_template('login.html')
