@@ -2,11 +2,12 @@
 {% block index %}
 <div class='col-md-9 col-lg-9 panel panel-danger product_list' style='float:right;padding-top:15px;'>
 <script src="../static/js/validator.min.js"></script>
-{% for each_user in all_users %}
+{% for each_album in all_albums %}
      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-    {{ each_user.user_name }}
-         <p>{{ each_user.email}}</p>
-         <p>{{ each_user.user_password }}</p>
+    {{ each_album.album_name }}
+         <p>{{ each_album.album_description}}</p>
+     <a href="{{ url_for('album_show',album_name = each_album.album_name) }}" role="button" class="btn btn-warning">enter album</a>
+
      </div>
 {% endfor %}
 </div>

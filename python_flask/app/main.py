@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, c
 from flask import flash
 from werkzeug.utils import secure_filename
 from models import *
+from kafka import KafkaConsumer
 app = Flask(__name__)
 
 app.secret_key = 'my_album'
@@ -12,8 +13,8 @@ db.init_app(app)
 @app.route('/')
 @app.route('/index')
 def index():
-    user_info_list = USER_INFO.query.all()
-    return render_template('index.html',all_users=user_info_list)
+    all_albums = IMAGE_ALBUM.query.all()
+    return render_template('index.html',all_albums=all_albums)
 @app.route('/login', methods=['POST', 'GET'])
 def user_login():
 
@@ -58,8 +59,26 @@ def upload_img():
     return render_template('upload.html',image_album=image_album)
 
 @app.route('/album_show/<string:album_name>')
-def album_show():
-    all_album = IMAGE_ALBUM.query.filter_by(album_name=album_name).all()
-    return render_template('album_show.html',all_album=all_album)
+def album_show(album_name):
+    all_images = IMAGE_INFO.query.filter_by(img_album=album_name).all()
+    return render_template('album_show.html',all_images=all_images)
+
+
+@app.route('/kafka', methods=['POST','GET'])
+def kafka_consumer():
+    consumer = KafkaConsumer('test',
+                             bootstrap_servers=['localhost:9092'])
+    for message in consumer:
+        # message value and key are raw bytes -- decode if necessary!
+        # e.g., for unicode: `message.value.decode('utf-8')`
+        print("%s:%d:%d: key=%s value=%s" % (message.topic, message.partition,
+                                             message.offset, message.key,
+                                             message.value))
+        return render_template('kafka_message.html',message=message.value)
+
+
+
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=8000)
