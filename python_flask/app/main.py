@@ -4,40 +4,56 @@ from flask import flash
 from werkzeug.utils import secure_filename
 from models import *
 from kafka import KafkaConsumer
+
+
+from flask_login import LoginManager, login_user,login_required,current_user,logout_user
 app = Flask(__name__)
 
 app.secret_key = 'my_album'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+
+
+
+
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return USER_INFO.query.filter_by(id=user_id).first()
+
 @app.route('/')
 @app.route('/index')
+@login_required
 def index():
     all_albums = IMAGE_ALBUM.query.all()
     return render_template('index.html',all_albums=all_albums)
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def user_login():
 
-    error = None
     if request.method == 'POST':
         email = request.form['email']
         user_password = request.form['user_password']
-
-        check_user = USER_INFO.query.filter_by(email=email).first()
-        print (check_user)
-
-        if user_password == check_user.user_password:
-
-            session['email'] = email
-            session['user_name'] = check_user.user_name
-            flash("login successfully")
-
+        user = USER_INFO.query.filter_by(email=email).first()
+        if user is not None and user_password == user.user_password:
+            login_user(user, remember=id)
+            flash('login successfully')
             return redirect(url_for('index'))
-        else:
-            return render_template('login.html', error_code="password is wrong")
+        flash('wront login info')
+    return render_template('login.html')
 
-    else:
-        return render_template('login.html')
+@app.route('/logout')
+@login_required
+def logout():
+    print (current_user.user_name,current_user.id, current_user.group_id)
+    logout_user()
+    return render_template('login.html')
+
 @app.route('/upload',methods=['POST','GET'])
 def upload_img():
     image_album=IMAGE_ALBUM.query.all()

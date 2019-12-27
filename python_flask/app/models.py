@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_login import UserMixin
 db = SQLAlchemy()
 
 
-class USER_INFO(db.Model):
+class USER_INFO(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(50), unique=False, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)

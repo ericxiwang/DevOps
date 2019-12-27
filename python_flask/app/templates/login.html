@@ -4,12 +4,12 @@
 <script src="../static/js/validator.min.js"></script>
 <form action='/login' method='POST' class='form-horizontal' role='form' data-toggle='validator'>
 <div class='col-md-6 col-lg-6 panel panel-danger' style='padding-bottom:15px;'>
-    <h3 class='form-signin-heading'>用户登录</h3>
+    <h3 class='form-signin-heading'>user_login</h3>
 
     <div class='form-group'>
         <div class='col-md-8'>
-            <label>用户登录邮箱</label>
-            <input class='form-control' name='email' placeholder='输入邮箱地址' type=text required>
+            <label>user_email</label>
+            <input class='form-control' name='email' placeholder='input email' type=text required>
         </div>
     </div>
 
@@ -17,14 +17,14 @@
     <div class='form-group'>
         <div class='col-md-8'>
 
-        <label>用户密码</label>
-        <input class='form-control' name='user_password' placeholder='输入密码' type=password required>
+        <label>user_password</label>
+        <input class='form-control' name='user_password' placeholder='input password' type=password required>
     </div>
     </div>
 
     <div class='form-group'>
         <div class='col-md-8'>
-            <button class='btn btn-lg btn-danger btn-block' type='submit'>登录</button>
+            <button class='btn btn-lg btn-danger btn-block' type='submit'>Login</button>
         </div>
     </div>
     {{ error_code }}
