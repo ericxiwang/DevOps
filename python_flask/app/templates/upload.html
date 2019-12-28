@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block index %}
     <h1>Please Upload file here</h1>
+{{ message }}
     <form action="" enctype='multipart/form-data' method='POST'>
         <input type="file" multiple="" name="file[]">
         <select name="img_album">

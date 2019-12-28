@@ -15,7 +15,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 
-
+ALLOWED_EXTENSIONS = {'png','jpg','jpeg','gif'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 login_manager = LoginManager()
@@ -57,22 +60,26 @@ def logout():
 @app.route('/upload',methods=['POST','GET'])
 def upload_img():
     image_album=IMAGE_ALBUM.query.all()
+
+    basepath = os.path.dirname(__file__)
     if request.method == 'POST':
         input_image = request.files.getlist('file[]')
         selected_album = request.form['img_album']
-        basepath = os.path.dirname(__file__)
+
 
         for each_image in input_image:
-            each_image.filename = str(uuid.uuid1()) + ".jpg"
-            upload_path = os.path.join(basepath, 'static/images',secure_filename(each_image.filename))
-            each_image.save(upload_path)
-            image_info = IMAGE_INFO(img_uuid=each_image.filename,img_album=selected_album)
-            db.session.add(image_info)
-            db.session.commit()
+            if each_image.filename == '':
+                return render_template('upload.html',image_album=image_album,message="no file found,do it again")
+            else:
+                each_image.filename = str(uuid.uuid1()) + ".jpg"
+                upload_path = os.path.join(basepath, 'static/images',secure_filename(each_image.filename))
+                each_image.save(upload_path)
+                image_info = IMAGE_INFO(img_uuid=each_image.filename,img_album=selected_album)
+                db.session.add(image_info)
+                db.session.commit()
         flash("upload successfully")
         return redirect(url_for('index'))
-
-    return render_template('upload.html',image_album=image_album)
+    return render_template('upload.html',image_album=image_album,message="please select one or more files")
 
 @app.route('/album_show/<string:album_name>')
 def album_show(album_name):
