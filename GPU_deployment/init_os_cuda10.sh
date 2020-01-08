@@ -92,7 +92,7 @@ function echo_step()
 
 function ui_summary_menu(){
 
-if [ $ENV_OS == "16.04" ];then
+if [ $ENV_OS == "16.04" ] || [ $ENV_OS == "18.04" ];then
 
 
     #if [ -d "$ENV_inst_path" ];then
@@ -626,7 +626,7 @@ function install_darner()
     chmod a+x /usr/local/bin/$ENV_darner
     
     #cp $ENV_inst_path/darner.service /lib/systemd/system/.
-    echo -e "[unit]\nDescription=darner for awakedata-server\nAfter=syslog.target network.target remote-fs.target nss-lookup.target" > /lib/systemd/system/darner.service
+    echo -e "[unit]\nDescription=darner deamon\nAfter=syslog.target network.target remote-fs.target nss-lookup.target" > /lib/systemd/system/darner.service
     echo -e "[Service]\nType=simple\nExecStart=/usr/local/bin/darner -d /darner -p 22133\nUser=awrun\nGroup=awrun\nKillSignal=SIGTERM\nPrivateTmp=true" >> /lib/systemd/system/darner.service
     echo -e "[Install]\nWantedBy=multi-user.target" >> /lib/systemd/system/darner.service
     systemctl daemon-reload

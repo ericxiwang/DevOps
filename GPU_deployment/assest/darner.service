@@ -1,0 +1,18 @@
+#Save this file as /lib/systemd/system/darner.service
+
+[Unit]
+Description=darner daemon
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+#PIDFile=/run/darner.pid
+ExecStart=/usr/local/bin/darner -d /darner -p 22133
+User=awrun
+Group=awrun
+KillSignal=SIGTERM
+
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

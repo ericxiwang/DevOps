@@ -1,0 +1,14 @@
+#/etc/logrotate.d/nginx
+#for nginx access log rotation
+
+/usr/local/nginx/logs/access.log {
+	create 0644 root root
+	hourly
+	rotate 10
+	missingok
+	notifempty
+	compress
+	postrotate
+		systemctl restart nginx
+	endscript
+}
