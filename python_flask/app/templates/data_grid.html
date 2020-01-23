@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block data_grid %}
+<div class='col-md-9 col-lg-9 panel panel-danger product_list' style='float:right;padding-top:15px;'>
+<div class='panel panel-danger product_list' style='float:right;padding-top:15px;'>
+	<table class="table table-bordered">
+{% for each_album in all_albums_info %}
+<tr>   
+<td>
+	{{ each_album.id }}
+</td>
+<td>
+	{{ each_album.album_name }}
+</td>
+
+</tr>
+{% endfor %}
+</table>
+</div>
+
+</body>
+</html>
+{% endblock %}

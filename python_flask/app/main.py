@@ -28,6 +28,12 @@ login_manager.init_app(app)
 def load_user(user_id):
     return USER_INFO.query.filter_by(id=user_id).first()
 
+@login_manager.unauthorized_handler
+def handle_needs_login():
+    flash("You have to be logged in to access this page.")
+    return redirect(url_for('user_login', next=request.endpoint))
+
+
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -86,6 +92,13 @@ def album_show(album_name):
     all_images = IMAGE_INFO.query.filter_by(img_album=album_name).all()
     return render_template('album_show.html',all_images=all_images)
 
+
+@app.route('/data_grid',methods=['GET'])
+def data_grid():
+    all_albums_info = IMAGE_ALBUM.query.all()
+    print (all_albums_info)
+    print ("AAAA")
+    return render_template('data_grid.html',all_albums_info=all_albums_info)
 
 @app.route('/kafka', methods=['POST','GET'])
 def kafka_consumer():

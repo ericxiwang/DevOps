@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block login %}
-<div class='col-md-9 col-lg-9 panel panel-danger product_list' style='float:right;padding-top:15px;'>
+
 <script src="../static/js/validator.min.js"></script>
 <form action='/login' method='POST' class='form-horizontal' role='form' data-toggle='validator'>
-<div class='col-md-6 col-lg-6 panel panel-danger' style='padding-bottom:15px;'>
+<div class='col-md-6 col-lg-6 panel panel-danger' >
     <h3 class='form-signin-heading'>user_login</h3>
 
     <div class='form-group'>
-        <div class='col-md-8'>
+        <div class='col-md-6'>
             <label>user_email</label>
             <input class='form-control' name='email' placeholder='input email' type=text required>
         </div>
@@ -15,7 +15,7 @@
 
 
     <div class='form-group'>
-        <div class='col-md-8'>
+        <div class='col-md-6'>
 
         <label>user_password</label>
         <input class='form-control' name='user_password' placeholder='input password' type=password required>
@@ -23,7 +23,7 @@
     </div>
 
     <div class='form-group'>
-        <div class='col-md-8'>
+        <div class='col-md-6'>
             <button class='btn btn-lg btn-danger btn-block' type='submit'>Login</button>
         </div>
     </div>
@@ -31,7 +31,7 @@
 </div>
 </form>
 
-</div>
+
 
 
 {% endblock %}

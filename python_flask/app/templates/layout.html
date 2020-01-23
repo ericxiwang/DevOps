@@ -5,31 +5,41 @@
     <meta charset="UTF-8">
     <title> {{title}}</title>
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/index.css">
+
     <script src="../static/js/jquery.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
 </head>
 <body>
 
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Auto Test Demo</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="{{ url_for('index') }}">HOME</a></li>
+      <li><a href="#">Page 2</a></li>
+    </ul>
+  </div>
+</nav>
+
 
 <div class="container">
+    <div class="row">
+       
+        <div class="col-sm-12">
+            <div>
+            </div>
+            {% block index %}           {% endblock %}
+            {% block login %}           {% endblock %}
+            {% block data_grid %}       {% endblock %}
+
+       </div>
+    </div>
 
 
 
-<!--nav start-->
-<div class="row">
-    <div class="col-lg-12">
 
-        {% block index %}          {% endblock %}
-        {% block login %}          {% endblock %}
-
-   </div>
 </div>
-</div>
-<div class="container footer">
-
-
-</div>
-
 </body>
 </html>
