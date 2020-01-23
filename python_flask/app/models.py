@@ -20,7 +20,7 @@ class IMAGE_INFO(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     img_uuid = db.Column(db.String(150), unique=False, nullable=False)
     img_description = db.Column(db.String(50), unique=False, nullable=False)
-    img_album = db.Column(db.String(150), unique=False, nullable=False)
+    img_album = db.Column(db.String(150),  db.ForeignKey('IMAGE_ALBUM.album_name'), unique=False, nullable=False)
 
 
 class IMAGE_ALBUM(db.Model):

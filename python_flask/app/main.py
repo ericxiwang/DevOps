@@ -59,7 +59,7 @@ def user_login():
 @app.route('/logout')
 @login_required
 def logout():
-    print (current_user.user_name,current_user.id, current_user.group_id)
+
     logout_user()
     return render_template('login.html')
 
@@ -94,11 +94,21 @@ def album_show(album_name):
 
 
 @app.route('/data_grid',methods=['GET'])
+@login_required
 def data_grid():
+    new_grid_list = []
     all_albums_info = IMAGE_ALBUM.query.all()
-    print (all_albums_info)
-    print ("AAAA")
-    return render_template('data_grid.html',all_albums_info=all_albums_info)
+    for each_line in all_albums_info:
+        new_grid = {}
+        new_grid["id"] = each_line.id
+        new_grid["name"] = each_line.album_name
+        new_grid["description"] = each_line.album_description
+        new_grid["count"] = IMAGE_INFO.query.filter_by(img_album=each_line.album_name).count()
+        new_grid_list.append(new_grid)
+    print (new_grid_list)
+   
+   
+    return render_template('data_grid.html',all_albums_info=new_grid_list)
 
 @app.route('/kafka', methods=['POST','GET'])
 def kafka_consumer():

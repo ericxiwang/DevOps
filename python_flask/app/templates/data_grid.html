@@ -2,19 +2,32 @@
 {% block data_grid %}
 <div class='col-md-9 col-lg-9 panel panel-danger product_list' style='float:right;padding-top:15px;'>
 <div class='panel panel-danger product_list' style='float:right;padding-top:15px;'>
-	<table class="table table-bordered">
-{% for each_album in all_albums_info %}
-<tr>   
-<td>
-	{{ each_album.id }}
-</td>
-<td>
-	{{ each_album.album_name }}
-</td>
-
-</tr>
-{% endfor %}
-</table>
+	<table class="table table-dark table-bordered">
+		<thead>
+			<th scope="col">id</th>
+      		<th scope="col">name</th>
+      		<th scope="col">description</th>
+      		<th scope="col">count</th>
+		</thead>
+		<tbody>
+		{% for each_album in all_albums_info %}
+		<tr>   
+		<td style="width:100px;">
+			{{ each_album.id }}
+		</td>
+		<td style="width:200px;">
+			{{ each_album.name }}
+		</td>
+		<td style="width:300px;">
+			{{ each_album.description }}
+		</td>
+		<td style="width:100px;">
+			{{ each_album.count }}
+		</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
 </div>
 
 </body>
