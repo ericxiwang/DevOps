@@ -185,3 +185,12 @@ sudo kubeadm join &lt;MASTER_NODE_IP>:&lt;API_SERVER_PORT> --token &lt;TOKEN> --
 
 #exe this command will generate cli for worker node
 kubeadm token create --print-join-command
+
+
+
+
+#deploy nginx ingress controller
+kubectl apply -f https://raw:githubusercontent:com/kubernetes/ingress-nginx/controller-v1.9.5/deploy/static/provider/cloud/deploy.yaml
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.0/deploy/static/provider/cloud/deploy.yaml
