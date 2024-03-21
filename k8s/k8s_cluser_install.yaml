@@ -179,6 +179,10 @@ kubectl describe pods -n kube-system coredns-xxxx
 
 
 
+
+echo "==== run following command on master node==="
+kubeadm token create --print-join-command
+
 echo "==== worker join to master node ===="
 sudo kubeadm join &lt;MASTER_NODE_IP>:&lt;API_SERVER_PORT> --token &lt;TOKEN> --discovery-token-ca-cert-hash &lt;CERTIFICATE_HASH>
 
