@@ -3,14 +3,19 @@ from flask import Flask, render_template, request, redirect, url_for, session, c
 from flask import flash
 from werkzeug.utils import secure_filename
 from models import *
-from kafka import KafkaConsumer
+#from kafka import KafkaConsumer
 
 
 from flask_login import LoginManager, login_user,login_required,current_user,logout_user
 app = Flask(__name__)
+path = os.getcwd()
 
 app.secret_key = 'my_album'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite3'
+#app.config['SQLALCHEMY_DATABASE_URI'] = (r'sqlite:///database.sqlite3')
+db_path = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
+db_uri = 'sqlite:///{}'.format(db_path)
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
@@ -64,6 +69,7 @@ def logout():
     return render_template('login.html')
 
 @app.route('/upload',methods=['POST','GET'])
+@login_required
 def upload_img():
     image_album=IMAGE_ALBUM.query.all()
 
