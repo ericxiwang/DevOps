@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  initdb.sql: |
+    CREATE DATABASE IF NOT EXISTS demo;
+    USE demo;
+    CREATE TABLE IF NOT EXISTS USER_INFO (id INTEGER AUTO_INCREMENT PRIMARY KEY,user_name TEXT,email TEXT,user_password TEXT,group_id INTEGER);
+    CREATE TABLE IF NOT EXISTS IMAGE_INFO (id INTEGER AUTO_INCREMENT PRIMARY KEY,img_uuid TEXT,img_description TEXT,img_album TEXT);
+    CREATE TABLE IF NOT EXISTS IMAGE_ALBUM (id INTEGER AUTO_INCREMENT PRIMARY KEY,album_name TEXT,album_description TEXT);
