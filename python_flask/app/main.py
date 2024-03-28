@@ -11,15 +11,12 @@ app = Flask(__name__)
 path = os.getcwd()
 
 app.secret_key = 'my_album'
-#app.config['SQLALCHEMY_DATABASE_URI'] = (r'sqlite:///database.sqlite3')
-db_path = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
-db_uri = 'sqlite:///{}'.format(db_path)
+#db_path = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
+#db_uri = 'sqlite:///{}'.format(db_path)
+db_uri = 'mysql://root:qa12345@10.0.0.89/demo'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
-
-
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg','gif'}
 def allowed_file(filename):
     return '.' in filename and \
