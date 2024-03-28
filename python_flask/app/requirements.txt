@@ -5,3 +5,4 @@ SQLAlchemy==2.0.28
 kafka-python==1.4.7
 Flask-Login==0.6.3
 gunicorn==21.2.0
+Flask-MySQLDB==2.0.0
