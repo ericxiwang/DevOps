@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask-config
+data:
+  config.json: |
+    {
+      "app_mode": "prod",
+      "db_type": "mysql",
+      "db_url": "mysql-service",
+      "db_user": "root",
+      "db_psw": "qa12345",
+      "db_port": 3306,
+      "db_name": "demo"
+    }

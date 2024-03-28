@@ -8,6 +8,10 @@ spec:
       containers:
         - name: app
           image: ericxiwang/flask:032124
+          volumeMounts:
+            - name: flask-config
+              mountPath: /opt/app/config.json
+              subPath: config.json
 
         - name: nginx
           image: nginx
@@ -21,3 +25,9 @@ spec:
         - name: nginx-config
           configMap:
             name: nginx-config
+        - name: flask-config
+          configMap:
+            name: flask-config
+            items:
+              - key: config.json
+                path: config.json

@@ -11,9 +11,31 @@ app = Flask(__name__)
 path = os.getcwd()
 
 app.secret_key = 'my_album'
-#db_path = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
-#db_uri = 'sqlite:///{}'.format(db_path)
-db_uri = 'mysql://root:qa12345@10.0.0.89/demo'
+
+
+############## load config file ###############
+
+config_path = os.path.join(os.path.dirname(__file__), 'config.json')
+current_config = open(config_path)
+current_config = json.load(current_config)
+
+if current_config['app_mode'] == "prod":
+    print("prod mode")
+    if current_config['db_type'] == "mysql":
+        db_uri = "mysql://" + str(current_config['db_user'])+ ":" + str(current_config['db_psw']) + "@" + str(current_config['db_url']) + "/" + str(current_config['db_name'])
+        print(db_uri)
+elif current_config['app_mode'] == "dev":
+    print("dev mode, using local sqlite db")
+    db_path = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
+    db_uri = 'sqlite:///{}'.format(db_path)
+else:
+    print("need get app mode config, dev or prod")
+
+
+
+
+
+#db_uri = 'mysql://root:qa12345@10.0.0.89/demo'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)

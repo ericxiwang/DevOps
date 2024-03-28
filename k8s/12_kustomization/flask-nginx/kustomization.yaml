@@ -7,6 +7,7 @@ resources:
 - deployment.yaml
 - service.yaml
 - ingress.yaml
+- flask-config.yaml
 
 configMapGenerator:
 - files:
