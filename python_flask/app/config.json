@@ -1,5 +1,5 @@
 {
-  "app_mode": "prod",
+  "app_mode": "dev",
   "db_type": "mysql",
   "db_url": "10.0.0.89",
   "db_user": "root",

@@ -22,7 +22,7 @@ current_config = json.load(current_config)
 if current_config['app_mode'] == "prod":
     print("prod mode")
     if current_config['db_type'] == "mysql":
-        db_uri = "mysql://" + str(current_config['db_user'])+ ":" + str(current_config['db_psw']) + "@" + str(current_config['db_url']) + "/" + str(current_config['db_name'])
+        db_uri = "mysql://" + str(current_config['db_user']) + ":" + str(current_config['db_psw']) + "@" + str(current_config['db_url']) + "/" + str(current_config['db_name'])
         print(db_uri)
 elif current_config['app_mode'] == "dev":
     print("dev mode, using local sqlite db")
@@ -90,7 +90,7 @@ def logout():
 @app.route('/upload',methods=['POST','GET'])
 @login_required
 def upload_img():
-    image_album=IMAGE_ALBUM.query.all()
+    image_album = IMAGE_ALBUM.query.all()
 
     basepath = os.path.dirname(__file__)
     if request.method == 'POST':
@@ -113,6 +113,7 @@ def upload_img():
     return render_template('upload.html',image_album=image_album,message="please select one or more files")
 
 @app.route('/album_show/<string:album_name>')
+@login_required
 def album_show(album_name):
     all_images = IMAGE_INFO.query.filter_by(img_album=album_name).all()
     return render_template('album_show.html',all_images=all_images)
@@ -130,7 +131,7 @@ def data_grid():
         new_grid["description"] = each_line.album_description
         new_grid["count"] = IMAGE_INFO.query.filter_by(img_album=each_line.album_name).count()
         new_grid_list.append(new_grid)
-    print (new_grid_list)
+    print(new_grid_list)
    
    
     return render_template('data_grid.html',all_albums_info=new_grid_list)

@@ -19,6 +19,12 @@
     <ul class="nav navbar-nav">
       <li><a href="{{ url_for('index') }}">HOME</a></li>
       <li><a href="{{ url_for('data_grid') }}">TABLE</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('upload_img') }}">UPLOAD</a></li>
+        <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
+
+
+        {% endif %}
     </ul>
   </div>
 </nav>
