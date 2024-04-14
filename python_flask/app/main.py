@@ -1,13 +1,18 @@
-import sys,os,json,uuid
-from flask import Flask, render_template, request, redirect, url_for, session, current_app, Response,current_app
+import os,json,uuid
+from flask import Flask, render_template, request, redirect, url_for
 from flask import flash
 from werkzeug.utils import secure_filename
 from models import *
+from python_flask.app.api.algorithms import *
+from api import flask_api
 #from kafka import KafkaConsumer
 
 
-from flask_login import LoginManager, login_user,login_required,current_user,logout_user
+from flask_login import LoginManager, login_user,login_required, logout_user
 app = Flask(__name__)
+app.register_blueprint(flask_api.flask_api)
+
+
 path = os.getcwd()
 
 app.secret_key = 'my_album'
@@ -47,6 +52,9 @@ def allowed_file(filename):
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -133,7 +141,7 @@ def data_grid():
         new_grid_list.append(new_grid)
     print(new_grid_list)
    
-   
+
     return render_template('data_grid.html',all_albums_info=new_grid_list)
 
 @app.route('/kafka', methods=['POST','GET'])
@@ -147,6 +155,24 @@ def kafka_consumer():
                                              message.offset, message.key,
                                              message.value))
         return render_template('kafka_message.html',message=message.value)
+
+
+@app.route('/api/v1/list_sort',methods=['POST','GET'])
+def list_sort():
+    data = json.loads(request.data)
+    if request.method == 'POST':
+        user_name = data['user_name']
+        user_password = data['user_password']
+        user_list = data['input_list']
+        return_list = bubble_sort(user_list)
+
+
+        return return_list
+    else:
+
+        help_info = {"user_name": "<email>", "user_password": "<psw>", "user_url": "<url>","faz_branch":"<version>"}
+        return json.dumps(help_info)
+
 
 
 
