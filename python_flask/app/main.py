@@ -1,8 +1,8 @@
 import os,json,uuid
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,session
 from flask import flash
 from werkzeug.utils import secure_filename
-from models import *
+from python_flask.app.model.models import *
 from python_flask.app.api.algorithms import *
 from api import flask_api
 #from kafka import KafkaConsumer
@@ -28,7 +28,7 @@ if current_config['app_mode'] == "prod":
     print("prod mode")
     if current_config['db_type'] == "mysql":
         db_uri = "mysql://" + str(current_config['db_user']) + ":" + str(current_config['db_psw']) + "@" + str(current_config['db_url']) + "/" + str(current_config['db_name'])
-        print(db_uri)
+
 elif current_config['app_mode'] == "dev":
     print("dev mode, using local sqlite db")
     db_path = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
@@ -37,12 +37,10 @@ else:
     print("need get app mode config, dev or prod")
 
 
-
-
-
 #db_uri = 'mysql://root:qa12345@10.0.0.89/demo'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['API_KEY'] = current_config['api_key']
 db.init_app(app)
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg','gif'}
 def allowed_file(filename):
@@ -71,6 +69,7 @@ def handle_needs_login():
 @login_required
 def index():
     all_albums = IMAGE_ALBUM.query.all()
+
     return render_template('index.html',all_albums=all_albums)
 
 
@@ -84,6 +83,7 @@ def user_login():
         if user is not None and user_password == user.user_password:
             login_user(user, remember=id)
             flash('login successfully')
+            print(session['_id'])
             return redirect(url_for('index'))
         flash('wront login info')
     return render_template('login.html')

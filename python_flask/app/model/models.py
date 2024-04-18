@@ -30,4 +30,4 @@ class IMAGE_ALBUM(db.Model):
     album_name = db.Column(db.String(100), unique=False, nullable=False)
     album_description = db.Column(db.String(100), unique=False, nullable=False)
 if __name__ == "__main__":
-    os.path()
+    print(os.path)
