@@ -2,8 +2,8 @@ import os,json,uuid
 from flask import Flask, render_template, request, redirect, url_for,session
 from flask import flash
 from werkzeug.utils import secure_filename
-from python_flask.app.model.models import *
-from python_flask.app.api.algorithms import *
+from model.models import *
+from api.algorithms import *
 from api import flask_api
 #from kafka import KafkaConsumer
 

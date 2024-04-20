@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_user,login_required, logout_user
 import os,json,uuid
 from api.algorithms import *
 
-from python_flask.app.model.models import *
+from model.models import *
 
 
 flask_api = Blueprint('flask_api', __name__, url_prefix='/api/v1')
@@ -21,7 +21,7 @@ def api_auth():
         if user is not None and user_password == user.user_password:
             login_user(user)
             print(session['_id'])
-            return session['_id']
+            return json.dumps(session['_id'])
     else:
         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
         return json.dumps(help_info)
@@ -32,15 +32,14 @@ def api_unauth():
 
 
 @flask_api.route('/list_reverse', methods=['POST','GET'])
-@login_required
+
 def list_reverse_api():
     try:
         data = json.loads(request.data)
-        user_name = data['user_name']
-        user_password = data['user_password']
-        user_list = data['user_list']
-        new_list = bubble_sort(user_list)
-        return new_list
+        user_list = list(data['user_list'])
+        new_list = list_reverse(user_list)
+        result = {'result':new_list}
+        return json.dumps(result)
 
     except:
 
@@ -49,17 +48,15 @@ def list_reverse_api():
 
 
 @flask_api.route('/list_comprehension', methods=['POST'])
+
 def list_comprehension_api():
     try:
         data = json.loads(request.data)
-
-              #  request.method == 'POST'
-        user_name = data['user_name']
-        user_password = data['user_password']
         user_limit = data['user_limit']
         print(user_limit)
-        a = list_comprehension(user_limit)
-        return a
+        new_list = list_comprehension(user_limit)
+        result = {'result': new_list}
+        return json.dumps(result)
     except:
 
         help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
@@ -69,14 +66,11 @@ def fib_api():
 
     try:
         data = json.loads(request.data)
-          #  request.method == 'POST'
-        user_name = data['user_name']
-        user_password = data['user_password']
         user_limit = data['user_limit']
         print(user_limit)
         new_list = fib1(user_limit)
-
-        return str(new_list)
+        result = {'result': new_list}
+        return json.dumps(result)
     except:
 
         help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
@@ -87,12 +81,11 @@ def build_in_sort_api():
 
      try:
          data = json.loads(request.data)
-         user_name = data['user_name']
-         user_password = data['user_password']
          input_list = data['user_list']
          print(input_list)
          new_list = build_in_sort(input_list)
-         return new_list
+         result = {'result': new_list}
+         return json.dumps(result)
      except:
 
          help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
@@ -105,11 +98,10 @@ def bubble_sort_api():
 
      try:
          data = json.loads(request.data)
-         user_name = data['user_name']
-         user_password = data['user_password']
          input_list = data['user_list']
          new_list = bubble_sort(input_list)
-         return new_list
+         result = {'result': new_list}
+         return json.dumps(result)
      except:
 
          help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
@@ -119,17 +111,30 @@ def quick_sort_api():
 
      try:
          data = json.loads(request.data)
-         user_name = data['user_name']
-         user_password = data['user_password']
          input_list = data['user_list']
          print(input_list)
          new_list = quick_sort(input_list)
-         return new_list
+         result = {'result': new_list}
+         return json.dumps(result)
      except:
 
          help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
          return json.dumps(help_info)
+@flask_api.route('/user_profile', methods=['POST'])
+def user_profile():
 
+     try:
+         user_name      =   "admin_test@test.com"
+         user_address   =   "1110-1111 eastwood street"
+         user_group     =   "admin"
+
+         result = json.dumps({'user_name': user_name, "user_address":  user_address, "user_group": user_group})
+
+         return result
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
 
 
 
