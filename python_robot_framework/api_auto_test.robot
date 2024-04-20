@@ -14,41 +14,41 @@ API_SESSION_INIT
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
    # ${body}=    Update Value To Json        ${body}      $.user_list     [9,8,7,6,5,4,3,2,1]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
     Log     ${response.json()}
 
 /api/v1/list_comprehension
     [Tags]      cloud
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
     Log     ${response.json()}
 
 /api/v1/fib
     [Tags]     cloud
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
     Log     ${response.json()}
 
 /api/v1/bubble_sort
     [Tags]     cloud
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
     Log     ${response.json()}
 /api/v1/quick_sort
     [Tags]     cloud
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
     Log     ${response.json()}
 
 /api/v1/build_in_sort
     [Tags]     cloud
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}
     Log     ${response.json()}
 
 /api/v1/user_profile(check_username)
@@ -57,7 +57,7 @@ API_SESSION_INIT
     Log     ${body}[0][user_name]
     ${test_data}    Set Variable    ${body}[0][user_name]
    # ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
     Log     ${response.json()}
     ${real_data}    Set Variable     ${response.json()}[user_name]
     Log    ${real_data}
@@ -69,7 +69,7 @@ API_SESSION_INIT
     Log     ${body}[0][user_name]
     ${test_data}    Set Variable    ${body}[0][user_name]
    # ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
     Log     ${response.json()}
     ${real_data}    Set Variable     ${response.json()}[user_name]
     Log    ${real_data}
@@ -81,7 +81,7 @@ API_SESSION_INIT
     Log     ${body}[0][user_address]
     ${test_data}    Set Variable    ${body}[0][user_address]
    # ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
     Log     ${response.json()}
     ${real_data}    Set Variable     ${response.json()}[user_address]
     Log    ${real_data}
@@ -92,7 +92,7 @@ API_SESSION_INIT
     Log     ${body}[0][user_address]
     ${test_data}    Set Variable    ${body}[0][user_address]
    # ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
     Log     ${response.json()}
     ${real_data}    Set Variable     ${response.json()}[user_address]
     Log    ${real_data}
@@ -104,7 +104,7 @@ API_SESSION_INIT
     Log     ${body}[0][user_group]
     ${test_data}    Set Variable    ${body}[0][user_group]
    # ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
     Log     ${response.json()}
     ${real_data}    Set Variable     ${response.json()}[user_group]
     Log    ${real_data}
@@ -116,7 +116,7 @@ API_SESSION_INIT
     Log     ${body}[0][user_group]
     ${test_data}    Set Variable    ${body}[0][user_group]
    # ${body}     Set Variable    ${body}[0]
-    ${response}=    POST    ${FAZ_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
+    ${response}=    POST    ${FLASK_CLOUD_URL}/api/v1/user_profile   json=${body}     verify=${False}
     Log     ${response.json()}
     ${real_data}    Set Variable     ${response.json()}[user_group]
     Log    ${real_data}
