@@ -9,15 +9,16 @@ Library           JSONLibrary
 
 
 *** Variables ***
-${browser}      gc
-${FLASK_CLOUD_URL}          http://10.0.0.112:8000
+${browser}      Chrome
+${FLASK_CLOUD_URL}      http://10.0.0.89:8080
 ${user_name}     admin@admin.com
 ${user_password}     1234
+${selenium_grid_url}    http://10.0.0.88:4444/wd/hub
 
 *** Keywords ***
 Open browser with URL
     [Arguments]    ${FLASK_CLOUD_URL}
-    Open Browser    ${FLASK_CLOUD_URL}  options=add_argument("--ignore-certificate-errors");add_argument("--no-sandbox")
+    Open Browser    ${FLASK_CLOUD_URL}     ${browser}     remote_url=${selenium_grid_url}
 API_auth
     ${data}=    Create dictionary   user_name=${user_name}  user_password=${user_password}
     ${response}=    POST  ${FLASK_CLOUD_URL}/api/v1/auth      json=${data}

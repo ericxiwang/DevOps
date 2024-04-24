@@ -40,7 +40,7 @@ else:
 #db_uri = 'mysql://root:qa12345@10.0.0.89/demo'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['API_KEY'] = current_config['api_key']
+#app.config['API_KEY'] = current_config['api_key']
 db.init_app(app)
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg','gif'}
 def allowed_file(filename):
@@ -179,4 +179,4 @@ def list_sort():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=8000)
+    app.run(host="0.0.0.0", debug=True, port=8080)
