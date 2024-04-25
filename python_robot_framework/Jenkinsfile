@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    stages{
+        stage('test start here'){
+            steps{
+                echo 'robotframework test suite start'
+            }
+        }
+
+        stage('Get code from Github') {
+            steps{
+            checkout(
+                    [$class: 'GitSCM', branches: [[name: '*/master']],
+                     doGenerateSubmoduleConfigurations: false,
+                     extensions: [],
+                     submoduleCfg: [],
+                     userRemoteConfigs: [[url: 'https://github.com/ericxiwang/DevOps.git']]]
+            )
+            }
+        }
+        stage('switch to test folder'){
+            steps{
+                sh 'cd python_robot_framework'
+                sh 'robot ./python_robot_framework/page_auto_test.robot'
+
+            }
+        }
+
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'report.html', fingerprint: true
+
+        } }
+
+}
