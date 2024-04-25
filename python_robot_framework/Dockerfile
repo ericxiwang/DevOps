@@ -1,13 +1,14 @@
-FROM python:3.11
+FROM jenkins/jenkins:lts-jdk17
 
 LABEL maintainer="Eric Wang <gowest.wang@gmail.com>"
-
-COPY ./app /opt/app
-WORKDIR /opt/app
-RUN yes | pip install -r requirements.txt
-ENV PYTHONPATH=/opt/app
-
-EXPOSE 8000/tcp
-EXPOSE 8000/udp
-
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "main:app"]
+USER root
+RUN mkdir /opt/rt-test
+COPY api_auto_test.robot /opt/rt-test
+COPY api_temp.json /opt/rt-test
+COPY page_auto_test.robot /opt/rt-test
+COPY resources.robot opt/rt-test
+COPY requirements.txt opt/rt-test
+WORKDIR /opt/rt-test
+RUN apt-get -y update && apt-get -y install python3
+RUN apt-get -y install python3-pip
+RUN yes | pip3 install -r requirements.txt --break-system-packages
