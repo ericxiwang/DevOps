@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-server
+  template:
+    metadata:
+      labels:
+        app: selenium-server
+    spec:
+      containers:
+        - name: selenium
+          image: selenium/standalone-chrome:latest
+          ports:
+            - containerPort: 4444
+            - containerPort: 4443
+            - containerPort: 4442
+            - containerPort: 7900

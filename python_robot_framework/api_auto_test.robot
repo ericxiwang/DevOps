@@ -5,8 +5,9 @@ Resource    resources.robot
 API_SESSION_INIT
     [Tags]      sanity
     API_auth
-    ${flask_api_temp}=    Load Json From File        api_temp.json
+    ${flask_api_temp}=    Load Json From File        ${PATH}/api_temp.json
     Set Global Variable     ${flask_api_temp}
+    Log    ${PATH}
 
 
 /api/v1/list_reverse

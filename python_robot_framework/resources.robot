@@ -14,7 +14,7 @@ ${FLASK_CLOUD_URL}      http://10.0.0.89:8080
 ${user_name}     admin@admin.com
 ${user_password}     1234
 ${selenium_grid_url}    http://10.0.0.88:4444/wd/hub
-
+${PATH}         ${CURDIR}
 *** Keywords ***
 Open browser with URL
     [Arguments]    ${FLASK_CLOUD_URL}
