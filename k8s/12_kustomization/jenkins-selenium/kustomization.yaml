@@ -4,5 +4,5 @@ commonLabels:
   app: jenkins
 
 resources:
-- jenkins-Deployment.yaml
-- jenkins-Service.yaml
+- jenkins-deployment.yaml
+- jenkins-service.yaml

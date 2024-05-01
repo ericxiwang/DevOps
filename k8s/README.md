@@ -28,3 +28,13 @@ docker pull ericxiwang/jenkins:tagname
 ### 4.selenium-service
     service name: selenium-service
     service port: 4444
+
+#### run port forward on k8s
+    kubectl port-forward --address 0.0.0.0 service/jenkins-service 8081:8080 & \
+    kubectl port-forward --address 0.0.0.0 service/selenium-service 4444:4444 & \
+    kubectl port-forward --address 0.0.0.0 service/flask-example 8080:8080 &
+
+#### run port forward on k8s
+___
+![top](readmepic.png)
+___

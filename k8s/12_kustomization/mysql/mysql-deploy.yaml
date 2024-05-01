@@ -41,7 +41,7 @@ spec:
           configMap:
             name: mysql-initdb-config
             items:
-              - key: mysql-initdb.sql
-                path: mysql-initdb.sql
+              - key: initdb.sql
+                path: initdb.sql
               - key: my.cnf
                 path: my.cnf
