@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "selenium-service.fullname" . }}
+  labels:
+    {{- include "selenium-service.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports: 
+  {{- range $key, $value := .Values.ports }}
+    - name: {{ $key }}
+      port: {{ $value }}
+      targetPort: {{ $value }}
+  {{- end }}
+
+  selector:
+    {{- include "selenium-service.selectorLabels" . | nindent 4 }}

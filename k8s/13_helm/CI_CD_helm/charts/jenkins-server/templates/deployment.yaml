@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "flask-example.fullname" . }}
+  name: {{ include "jenkins-server.fullname" . }}
   labels:
-    {{- include "flask-example.labels" . | nindent 4 }}
+    {{- include "jenkins-server.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "flask-example.selectorLabels" . | nindent 6 }}
+      {{- include "jenkins-server.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "flask-example.labels" . | nindent 8 }}
+        {{- include "jenkins-server.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,16 +27,17 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "flask-example.serviceAccountName" . }}
+      serviceAccountName: {{ include "jenkins-server.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image }}:{{ .Values.tag }}"
+          imagePullPolicy: {{ .Values.pullPolicy }}
           ports:
             - name: http
-              containerPort: 8000
+              containerPort: {{ index .Values "jenkins-port" }}
+              #containerPort: 8080
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -45,31 +46,12 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: project-config
-              mountPath: /opt/app/config.json
-              subPath: config.json
-        {{- if .Values.image_sidecar }}
-        - name: "{{ .Values.image_sidecar.name }}"
-          image: "{{ .Values.image_sidecar.repository }}:{{ .Values.image_sidecar.tag }}"
-          imagePullPolicy: {{ .Values.image_sidecar.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.image_sidecar.containerPort }}
-              protocol: TCP
-          volumeMounts:
-            - name: project-config
-              mountPath: /etc/nginx/conf.d
-              subPath: default.conf
-        {{- end }}
+            - name: jenkins-data
+              mountPath: /var/jenkins-home
       volumes:
-        - name: project-config
-          configMap:
-            name: project-config
-            items:
-              - key: config.json
-                path: config.json
-              - key: default.conf
-                path: default.conf
+        - name: jenkins-data
+          emptyDir:
+              {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

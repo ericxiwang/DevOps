@@ -1,0 +1,21 @@
+apiVersion: v2
+name: CI_CD_helm
+description: root chart for CI/CI demo 
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: flask-example
+    version: "0.1.0"
+    repository: "file://./charts/flask-example"
+    enabled: true
+
+  - name: jenkins-server
+    version: "0.1.0"
+    repository: "file://./charts/jenkins-server"
+    enabled: true
+
+  - name: selenium-service
+    version: "0.1.0"
+    repository: "file://./charts/selenium-service"
+    enabled: true
