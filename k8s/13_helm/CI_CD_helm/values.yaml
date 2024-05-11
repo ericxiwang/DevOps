@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 3
+replicaCount: 1
 
 flask-example:
   fullnameOverride: flask-example
@@ -13,7 +13,7 @@ flask-example:
   service:
     type: ClusterIP
     port: 8080
-  mode: "dev" # "dev" or "prod"
+  mode: "prod" # "dev" or "prod"
 jenkins-server:
   fullnameOverride: jenkins-server
   image: docker.io/ericxiwang/jenkins
@@ -30,3 +30,12 @@ selenium-service:
     port-2: 4443
     port-3: 4442
     port-4: 7900
+mysql-service:
+  fullnameOverride: mysql-service
+  image:
+    repository: mysql
+    pullPolicy: IfNotPresent
+    tag: latest 
+  ports:
+    containerPort: 3306
+  mountpath: /mnt/data

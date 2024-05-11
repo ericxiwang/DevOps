@@ -19,3 +19,7 @@ dependencies:
     version: "0.1.0"
     repository: "file://./charts/selenium-service"
     enabled: true
+      #  - name: mysql-service
+      #version: "0.1.0"
+      #repository: "file://./charts/mysql-service"
+      #enabled: true
