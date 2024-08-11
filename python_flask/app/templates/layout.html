@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title> {{title}}</title>
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="../static/css/index.css">
     <script src="../static/js/jquery.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
 </head>
@@ -32,10 +32,40 @@
 
 <div class="container">
     <div class="row">
+    {% if current_user.is_authenticated %}
+
+        <div class="col-xl-2 col-lg-2">
+                <div class="panel panel-success panel-heading">
+                    Locating by Id
+                </div>
+                <div class="panel panel-success panel-heading">
+                    Locating by Name
+                </div>
+
+                <div class="panel panel-success panel-heading">
+                    Locating by Class Name
+                </div>
+
+                <div class="panel panel-success panel-heading">
+                    Locating by Xpath
+                </div>
+                <div class="panel panel-success panel-heading">
+                    Locating by Tag Name
+                </div>
+                <div class="panel panel-success panel-heading">
+                    Locating by CSS Selectors
+                </div>
+
+        </div>
+
+
+ {% endif %}
+
+
+
        
-        <div class="col-sm-12">
-            <div>
-            </div>
+        <div class="col-xl-10 col-lg-10">
+
             {% block index %}           {% endblock %}
             {% block login %}           {% endblock %}
             {% block data_grid %}       {% endblock %}

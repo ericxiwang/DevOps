@@ -104,6 +104,8 @@ def upload_img():
     if request.method == 'POST':
         input_image = request.files.getlist('file[]')
         selected_album = request.form['img_album']
+        img_description = request.form['img_description']
+        print(selected_album)
 
 
         for each_image in input_image:
@@ -113,7 +115,7 @@ def upload_img():
                 each_image.filename = str(uuid.uuid1()) + ".jpg"
                 upload_path = os.path.join(basepath, 'static/images',secure_filename(each_image.filename))
                 each_image.save(upload_path)
-                image_info = IMAGE_INFO(img_uuid=each_image.filename,img_album=selected_album)
+                image_info = IMAGE_INFO(img_uuid=each_image.filename, img_album=selected_album, img_description=img_description)
                 db.session.add(image_info)
                 db.session.commit()
         flash("upload successfully")
