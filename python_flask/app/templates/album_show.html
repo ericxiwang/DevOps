@@ -1,23 +1,55 @@
 {% extends "layout.html" %}
+
 {% block index %}
-<div class='col-md-12 col-lg-12 panel panel-danger product_list' >
-{% for each_images in all_images %}
+<div class='col-md-12 col-lg-12 panel panel-danger product_list'>
 
-    <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-        <div class="panel panel-success">
-            <u>{{ each_images.img_album }}</u>
+    {% for each_images in all_images %}
+
+        <div class="col-md-3 col-lg-3 panel panel-danger inventory">
+            <div class="panel panel-success">
+                <u>{{ each_images.img_album }}</u>
+            </div>
+            <img id="myModal" class="img-thumbnail preview-pic" src="{{ url_for('static',filename = 'images/'+each_images.img_uuid ) }}" />
+
+            City Name:<br>
+            <div class="city_name">{{ each_images.img_description }}
+            </div>
+
+
         </div>
-<img class="img-thumbnail preview-pic" src="{{ url_for('static',filename = 'images/'+each_images.img_uuid ) }}"/>
 
-City Name:<br>
-        <div class="city_name">{{ each_images.img_description }}
-        </div>
+        {% endfor %}
+    </div>
 
-
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
 </div>
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
 
-{% endfor %}
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById("myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
+}
 
-</div>
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+</script>
+
+
 
 {% endblock %}

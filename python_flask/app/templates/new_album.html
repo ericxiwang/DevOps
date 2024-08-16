@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block index %}
+    <h1>Please Input Album Name</h1>
+{{ message }}
+<div class='col-md-12 col-lg-12 panel panel-danger'>
+    <div class="col-md-9 col-lg-9 panel panel-danger">
+    <form action="" enctype='multipart/form-data' method='POST'>
+
+        <div class="panel panel-success panel-heading">
+            album_name:<br>
+            <input type="text" name="album_name">
+        </div>
+        <div class="panel panel-success panel-heading">
+            album_description:<br>
+            <textarea name="album_description" style="height:300px;width:400px;"></textarea>
+        </div>
+        <input type="submit" value="upload" >
+    </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -95,6 +95,26 @@ def logout():
     logout_user()
     return render_template('login.html')
 
+@login_required
+@app.route('/new_album',methods=['POST','GET'])
+def new_album():
+    image_album = IMAGE_ALBUM.query.all()
+    if request.method == 'POST':
+
+        album_name = request.form['album_name']
+        album_description = request.form['album_description']
+        album_info = IMAGE_ALBUM(album_name=album_name, album_description=album_description)
+        db.session.add(album_info)
+        db.session.commit()
+
+
+
+
+        return redirect(url_for('index'))
+    else:
+        return render_template('new_album.html', message="please input new album info")
+
+
 @app.route('/upload',methods=['POST','GET'])
 @login_required
 def upload_img():

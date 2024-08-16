@@ -24,18 +24,16 @@ body {
 .inventory
 {	padding:10px;
 	/*width:18%;*/
-	width:23%;
+	width:30%;
 	margin:1%;
 	line-height:1;
-	height:280px;
+	height:320px;
 	
 
 
 	text-align: center;
 }
-.preview-pic{
-	border: 0px;
-}
+
 #slider1{
 
 	height:200px;
@@ -123,5 +121,7 @@ color:#858841;
 
 	color:#dc8118;
 }
+
+
 
 

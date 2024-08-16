@@ -29,5 +29,7 @@ class IMAGE_ALBUM(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     album_name = db.Column(db.String(100), unique=False, nullable=False)
     album_description = db.Column(db.String(100), unique=False, nullable=False)
+    __table_args__ = (db.UniqueConstraint('id', 'album_name'),)
+
 if __name__ == "__main__":
     print(os.path)
