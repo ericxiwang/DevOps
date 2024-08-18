@@ -10,10 +10,10 @@ Library           JSONLibrary
 
 *** Variables ***
 ${browser}      Chrome
-${FLASK_CLOUD_URL}      http://flask-example:8080
+${FLASK_CLOUD_URL}      http://10.0.0.220:8080
 ${user_name}     admin@admin.com
 ${user_password}     1234
-${selenium_grid_url}    http://selenium-service:4444/wd/hub
+${selenium_grid_url}    http://10.0.0.90:4444/wd/hub
 ${PATH}         ${CURDIR}
 *** Keywords ***
 Open browser with URL

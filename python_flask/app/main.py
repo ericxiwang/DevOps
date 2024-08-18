@@ -98,21 +98,35 @@ def logout():
 @login_required
 @app.route('/new_album',methods=['POST','GET'])
 def new_album():
-    image_album = IMAGE_ALBUM.query.all()
+
+
     if request.method == 'POST':
 
-        album_name = request.form['album_name']
-        album_description = request.form['album_description']
-        album_info = IMAGE_ALBUM(album_name=album_name, album_description=album_description)
-        db.session.add(album_info)
-        db.session.commit()
+        if request.form['form_method'] == "add":
+            album_name = request.form['album_name']
+            album_description = request.form['album_description']
+            album_info = IMAGE_ALBUM(album_name=album_name, album_description=album_description)
+            db.session.add(album_info)
+            db.session.commit()
 
+            image_album = db.session.query(IMAGE_ALBUM.album_name).all()
 
+            return render_template('new_album.html', image_album=image_album, message="please input new album info")
+        elif request.form['form_method'] == "delete":
+            print(request.form['form_method'])
 
+            selected_album = request.form.getlist('album_name_list')
+            for each_album in selected_album:
+                print("_",each_album)
+                db.session.query(IMAGE_ALBUM).filter(IMAGE_ALBUM.album_name==each_album).delete()
 
-        return redirect(url_for('index'))
+                db.session.commit()
+            image_album = db.session.query(IMAGE_ALBUM.album_name).all()
+            return render_template('new_album.html', image_album=image_album, message="please input new album info")
     else:
-        return render_template('new_album.html', message="please input new album info")
+        image_album = db.session.query(IMAGE_ALBUM.album_name).all()
+
+        return render_template('new_album.html', image_album=image_album, message="please input new album info")
 
 
 @app.route('/upload',methods=['POST','GET'])

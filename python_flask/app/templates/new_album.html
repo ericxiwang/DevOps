@@ -2,8 +2,8 @@
 {% block index %}
     <h1>Please Input Album Name</h1>
 {{ message }}
-<div class='col-md-12 col-lg-12 panel panel-danger'>
-    <div class="col-md-9 col-lg-9 panel panel-danger">
+<div class='col-md-12 col-lg-12 panel panel-danger' style="height:600px">
+    <div class="col-md-8 col-lg-8 panel panel-danger" style="height:500px">
     <form action="" enctype='multipart/form-data' method='POST'>
 
         <div class="panel panel-success panel-heading">
@@ -14,8 +14,24 @@
             album_description:<br>
             <textarea name="album_description" style="height:300px;width:400px;"></textarea>
         </div>
+        <input type="hidden" name="form_method" value="add" />
         <input type="submit" value="upload" >
     </form>
+    </div>
+    <div class="col-md-3 col-lg-3 panel panel-danger" style="height:500px">
+        <form action="" enctype='multipart/form-data' method='POST'>
+        {% for each_album in image_album %}
+
+            <input type="checkbox" class="form-check-input" name="album_name_list" value="{{ each_album[0] }}">
+            <label class="form-check-label" for="flexCheckChecked">
+                {{ each_album[0] }}
+            </label> <br>
+
+
+            {% endfor %}
+            <input type="hidden" name="form_method" value="delete" />
+            <input type="submit" value="delete" >
+        </form>
     </div>
 </div>
 
