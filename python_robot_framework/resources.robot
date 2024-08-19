@@ -6,6 +6,7 @@ Library           SSHLibrary
 Library           DateTime
 Library           RequestsLibrary
 Library           JSONLibrary
+Library           Collections
 
 
 *** Variables ***
