@@ -1,0 +1,12 @@
+[all:vars]
+ansible_connection=ssh
+ansible_user=eric
+ansible_ssh_pass=qa1234
+
+
+
+[k8s_master]
+k8s-master-1    ansible_host=10.0.0.81
+
+[k8s_worker]
+k8s-worker-1    ansible_host=10.0.0.82

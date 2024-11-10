@@ -13,12 +13,16 @@ class page_test:
 
 
         page = self.page
+
         page.get_by_label("")
         page.get_by_placeholder("input email").click()
         page.get_by_placeholder("input email").fill("admin@admin.com")
         page.get_by_placeholder("input email").press("Tab")
         page.get_by_placeholder("input password").fill("1234")
         page.get_by_role("button", name="Login").click()
+        title = page.get_by_role("herf",name="Auto Test Demo")
+        expect(page).to_have_title(re.compile("Eric's Private Album"))
+        assert title == 4
 
 
     def home(self):
@@ -26,7 +30,7 @@ class page_test:
         page.get_by_text("HOME").click()
         page.get_by_role("button", name="Enter Album").first.click()
         page.get_by_role("link", name="TABLE").click()
-
+        expect(page).to_have_title(re.compile("Eric's Private Album"))
     def test():
         print("TEST")
 
