@@ -32,12 +32,12 @@
     - name: initialize the cluster (this could take some time)
       shell: kubeadm init --config /etc/kubernetes/kubeadm-config.yaml >> cluster_initialized.log
       args:
-        chdir: /home/ubuntu
+        chdir: /home/{{ ansible_user }}
         creates: cluster_initialized.log
 
     - name: create .kube directory
       become: yes
-      become_user: ubuntu
+      become_user: {{ ansible_user }}
       file:
         path: $HOME/.kube
         state: directory
@@ -46,13 +46,13 @@
     - name: copy admin.conf to user's kube config
       copy:
         src: /etc/kubernetes/admin.conf
-        dest: /home/ubuntu/.kube/config
+        dest: /home/{{ ansible_user }}/.kube/config
         remote_src: yes
-        owner: ubuntu
+        owner: {{ ansible_user }}
 
     - name: install Pod network
       become: yes
-      become_user: ubuntu
+      become_user: {{ ansible_user }}
       shell: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.log
       args:
         chdir: $HOME

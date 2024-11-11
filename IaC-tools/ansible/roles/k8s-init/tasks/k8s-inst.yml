@@ -1,17 +1,12 @@
 - hosts: all
+  become: true
   tasks:
     - fail:
         msg: "OS should be Ubuntu 22.04, not {{ ansible_distribution }} {{ ansible_distribution_version }}"
       when: ansible_distribution != 'Ubuntu' or ansible_distribution_version != '22.04'
 
-    - name: update APT packages
-      apt:
-        update_cache: yes
-
-
-
     - name: disable system ufw
-      shell:
+      shell: |
         systemctl stop ufw
         systemctl disable ufw
 
@@ -28,7 +23,7 @@
 
     - name: add hosts record from ansible hosts file to each nodes
       lineinfile:
-        dest: /etc/aaa/hosts
+        dest: /etc/hosts
         regexp: '.*{{ item }}$'
         line: "{{ hostvars[item].ansible_host }} {{item}}"
         state: present
