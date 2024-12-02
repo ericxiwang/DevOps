@@ -1,0 +1,20 @@
+
+- name: disable system ufw
+  service:
+    name: ufw
+    state: stopped
+    enabled: false
+- name: apt update
+  apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+- name: install nginx
+  apt: 
+    name: nginx 
+    state: latest
+- name: start nginx
+  service:
+    name: nginx
+    state: started
+- name: copy nginx conf file
+  template:
+    src: default.conf.j2
+    dest: "/etc/nginx/conf.d"

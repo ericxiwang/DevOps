@@ -1,4 +1,4 @@
-- hosts: master
+- hosts: k8s-master
   become: yes
   #gather_facts: false
   tasks:
@@ -11,7 +11,7 @@
         join_command: "{{ join_command_raw.stdout_lines[0] }}"
 
 
-- hosts: workers
+- hosts: k8s-worker
   become: yes
   tasks:
     - name: TCP port 6443 on master is reachable from worker

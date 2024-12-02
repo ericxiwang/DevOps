@@ -70,8 +70,7 @@ def lyric_counter():
     try:
         local_file = open('lyric', 'r')
     except IOError:
-        print
-        "no file found"
+        print("no file found")
     else:
         lyric_content = local_file.read()
         words = re.findall(r'\w+', lyric_content)
@@ -95,8 +94,7 @@ def lyric_counter():
     new_l = zip(word_freq, word_set)
     new_l.sort(reverse=True)
     for ii in range(10):
-        print
-        new_l[ii]
+        print(new_l[ii])
 
 
 if __name__ == '__main__':

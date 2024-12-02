@@ -1,0 +1,4 @@
+#- name: include nginx setup
+#  include_tasks: nginx-deploy.yaml
+- name: include flask setup
+  include_tasks: flask-deploy.yaml

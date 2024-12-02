@@ -1,0 +1,6 @@
+- name: install k8s all dependences on each nodes
+  include_tasks: k8s-inst.yaml
+- name: init k8s master node
+  include_tasks: master.yaml
+- name: init k8s worker node
+  include_tasks: workder.yaml
