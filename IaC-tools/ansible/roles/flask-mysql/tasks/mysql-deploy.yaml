@@ -1,0 +1,26 @@
+- name: install mysql
+  apt:
+    name: mysql-server
+    state: present
+- name: install mysql client
+  apt:
+    name: mysql-client
+    state: present
+- name: "Install ansible python3 mysql dependency"
+  apt:
+    name: python3-mysqldb
+    state: latest
+- name: start & enable server
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+- name: user setup
+  mysql_user:
+    user: eric
+    password: qa12345
+    priv: '*.*:ALL,GRANT'
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+- name: Ensure example database exists.
+  mysql_db: name=demo state=present
+  notify: init_db
