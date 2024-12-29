@@ -5,7 +5,7 @@ import json
 
 def get_kafka_producer():
     return KafkaProducer(
-        bootstrap_servers=['localhost:9092'],
+        bootstrap_servers=['10.0.0.90:9092'],
         value_serializer=lambda m: json.dumps(m).encode('ascii'),
         retry_backoff_ms=500,
         request_timeout_ms=20000,)
@@ -48,5 +48,7 @@ application.add_url_rule('/<username>', 'hello', (lambda username:
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    application.debug = True
+    #application.debug = True
     application.run()
+    #get_kafka_producer()
+    #say_hello(username="World")
