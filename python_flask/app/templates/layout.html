@@ -35,14 +35,14 @@
     {% if current_user.is_authenticated %}
 
         <div class="col-lg-3">
-                <div class="panel panel-success panel-heading">
+                <div id="locator_id" class="panel panel-success panel-heading">
                     Locating by Id
                 </div>
-                <div class="panel panel-success panel-heading">
+                <div name="locator_name" class="panel panel-success panel-heading">
                     Locating by Name
                 </div>
 
-                <div class="panel panel-success panel-heading">
+                <div class="locator_class panel panel-success panel-heading">
                     Locating by Class Name
                 </div>
 
@@ -52,7 +52,7 @@
                 <div class="panel panel-success panel-heading">
                     Locating by Tag Name
                 </div>
-                <div class="panel panel-success panel-heading">
+                <div class="panel panel-success panel-heading" style="background-color:#aabbcc">
                     Locating by CSS Selectors
                 </div>
 
