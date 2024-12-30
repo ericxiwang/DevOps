@@ -39,9 +39,49 @@ def test_table_page():
         init_number = init_number + int(page.locator('tbody').locator('tr').nth(each_row).locator('td').nth(3).text_content())
 
     assert init_number == sum_of_pics
-
-def test_new_album():
+@pytest.fixture()
+def test_check_album():
     page.get_by_role("link", name="NEW ALBUM").click()
+    album_list = ["Spain", "Canada", "Israel", "France", "China"]
+    page_list = []
+    get_current_list = page.locator("input.form-check-input")
+    number_of_album = get_current_list.count()
+    print(number_of_album)
+    for list_item in range(int(number_of_album)):
+        each_album = page.locator("input.form-check-input").nth(list_item).input_value()
+
+        page_list.append(each_album)
+    page_list.sort()
+    print(page_list)
+    album_list.sort()
+    print(album_list)
+
+    if page_list == album_list:
+        album_check_passed = True
+    else:
+        album_check_passed = False
+    return album_check_passed
+
+
+
+def test_new_album(test_check_album):
+    print("new",test_check_album)
+    if test_check_album:
+        page.get_by_role("link", name="NEW ALBUM").click()
+        #page.get_by_role("textbox", name="album_name").click()
+        #page.get_by_role("textbox", name="album_name").fill("test_album")
+        page.locator("input[name=album_name]").click()
+        page.locator("input[name=album_name]").fill("test_albumn")
+        page.locator("textarea[name=album_description]").click()
+        page.locator("textarea[name=album_description]").fill("test_album_desc")
+        #page.get_by_role("textbox", name="album_description").click()
+        #page.get_by_role("textbox", name="album_description").fill("test_album_desc")
+        page.get_by_role("button", name="upload").click()
+    else:
+        pass
+
+
+
 
 
 def test_upload():
@@ -68,3 +108,4 @@ def test_locator_by_xpath():
 def test_locator_by_css():
     get_text = page.locator('css=div[style*="background-color:#aabbcc"]').inner_text()
     assert get_text == "Locating by CSS Selectors"
+    browser.close()
