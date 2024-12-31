@@ -60,27 +60,37 @@ def test_check_album():
         album_check_passed = True
     else:
         album_check_passed = False
-    return album_check_passed
-
+    return album_check_passed,page_list
 
 
 def test_new_album(test_check_album):
     print("new",test_check_album)
-    if test_check_album:
+    if test_check_album[0]:
+        input_album_name = "test_album"
+        input_album_desc = "test_album_desc"
         page.get_by_role("link", name="NEW ALBUM").click()
         #page.get_by_role("textbox", name="album_name").click()
         #page.get_by_role("textbox", name="album_name").fill("test_album")
         page.locator("input[name=album_name]").click()
-        page.locator("input[name=album_name]").fill("test_albumn")
+        page.locator("input[name=album_name]").fill(input_album_name)
         page.locator("textarea[name=album_description]").click()
-        page.locator("textarea[name=album_description]").fill("test_album_desc")
+        page.locator("textarea[name=album_description]").fill(input_album_desc)
         #page.get_by_role("textbox", name="album_description").click()
         #page.get_by_role("textbox", name="album_description").fill("test_album_desc")
         page.get_by_role("button", name="upload").click()
+        page.wait_for_timeout(3000)
     else:
-        pass
+        print("no album is created")
 
+def test_delete_album(test_check_album):
+    if test_check_album[0] == False:
+        print("trying delete last album")
+        page.locator("input[value=test_album]").check()
+        page.get_by_role("button", name="delete").click()
+        page.wait_for_timeout(3000)
 
+    else:
+        print("nothing to delete")
 
 
 
@@ -108,4 +118,8 @@ def test_locator_by_xpath():
 def test_locator_by_css():
     get_text = page.locator('css=div[style*="background-color:#aabbcc"]').inner_text()
     assert get_text == "Locating by CSS Selectors"
+
+def test_over():
+    context.close()
+
     browser.close()
