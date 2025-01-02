@@ -1,16 +1,17 @@
 import pytest, requests, json
 
 base_url = "http://localhost:8080"
+with open('api_temp.json', 'r') as file:
+    api_json_temp = json.load(file)
 
+print(api_json_temp)
 
-def test_api_list_reverse():
-    api_url = base_url + "/api/v1/list_reverse"
+@pytest.mark.parametrize("test_case_name", ["/api/v1/list_reverse"])
+def test_api_list_reverse(test_case_name):
+    api_url = base_url + test_case_name
+    test_list = api_json_temp[test_case_name]['user_list'][::-1]
 
-    payload = json.dumps({
-        "user_name": "admin",
-        "user_password": "1234",
-        "user_list": [1,2,3,4]
-    })
+    payload = json.dumps(api_json_temp[test_case_name])
     headers = {
         'Content-Type': 'application/json'
     }
@@ -22,16 +23,14 @@ def test_api_list_reverse():
 
     # Verify status code
     assert response.status_code == 200
-    assert get_json['result'] == [4,3,2,1]
+    assert get_json['result'] == test_list
 
-def test_api_list_comprehension():
+
+@pytest.mark.parametrize("test_case_name", ["/api/v1/list_comprehension"])
+def test_api_list_comprehension(test_case_name):
     limit_list = 10
-    api_url = base_url + "/api/v1/list_comprehension"
-    payload = json.dumps({
-        "user_name": "admin",
-        "user_password": "1234",
-        "user_limit": limit_list
-    })
+    api_url = base_url + test_case_name
+    payload = json.dumps(api_json_temp[test_case_name])
     headers = {
         'Content-Type': 'application/json'
     }
@@ -47,11 +46,11 @@ def test_api_list_comprehension():
 
     assert get_json['result'] == list_verify(limit_list)
 
-@pytest.mark.parametrize("user_name, user_group", [
-    ("admin_test@test.com", "admin")
+@pytest.mark.parametrize("test_case_name, user_name, user_group", [
+    ("/api/v1/list_reverse","admin_test@test.com", "admin")
 ])
 
-def test_user_profile(user_name,user_group):
+def test_user_profile(test_case_name,user_name,user_group):
     api_url = base_url + "/api/v1/user_profile"
     payload = json.dumps({
         "user_name": "admin_test@test.com",
@@ -68,3 +67,61 @@ def test_user_profile(user_name,user_group):
     assert response.status_code == 200
     assert get_json['user_name'] == user_name
     assert get_json['user_group'] == user_group
+
+
+@pytest.mark.parametrize("test_case_name", ["/api/v1/fib"])
+def test_api_fib(test_case_name):
+    api_url = base_url + test_case_name
+
+    payload = json.dumps(api_json_temp[test_case_name])
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", api_url, headers=headers, data=payload)
+    get_json = response.json()
+    print(get_json['result'])
+    #response = requests.get(api_url)
+
+    # Verify status code
+    #assert response.status_code == 200
+    #assert get_json['result'] == [9,7,5,3,1]
+
+@pytest.mark.parametrize("test_case_name", ["/api/v1/bubble_sort"])
+def test_api_bubble_sort(test_case_name):
+    api_url = base_url + test_case_name
+
+    payload = json.dumps(api_json_temp[test_case_name])
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", api_url, headers=headers, data=payload)
+    get_json = response.json()
+
+    assert  get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])
+
+@pytest.mark.parametrize("test_case_name", ["/api/v1/quick_sort"])
+def test_api_quick_sort(test_case_name):
+    api_url = base_url + test_case_name
+
+    payload = json.dumps(api_json_temp[test_case_name])
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", api_url, headers=headers, data=payload)
+    get_json = response.json()
+    print(get_json['result'])
+    assert get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])
+
+@pytest.mark.parametrize("test_case_name", ["/api/v1/build_in_sort"])
+def test_api_build_in_sort(test_case_name):
+    api_url = base_url + test_case_name
+
+    payload = json.dumps(api_json_temp[test_case_name])
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", api_url, headers=headers, data=payload)
+    get_json = response.json()
+    print(get_json['result'])
+    assert get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])

@@ -1,0 +1,25 @@
+{
+  "/api/v1/list_reverse": {
+    "user_list": [100,300,500,700,900,1000,3000,5000,7000,9000]
+  },
+  "/api/v1/list_comprehension": {
+    "user_limit": 10
+  },
+  "/api/v1/fib": {
+    "user_limit": 9
+  },
+  "/api/v1/bubble_sort": {
+    "user_list": [999,777,888,555,666,333,111,222]
+  },
+  "/api/v1/quick_sort": {
+    "user_list": [999,777,888,555,666,333,111,222]
+  },
+  "/api/v1/build_in_sort": {
+    "user_list": [999,777,888,555,666,333,111,222]
+  },
+   "/api/v1/user_profile": {
+     "user_name": "admin_test@test.com",
+     "user_address": "1110-1111 eastwood street",
+     "user_group": "admin"
+  }
+}
