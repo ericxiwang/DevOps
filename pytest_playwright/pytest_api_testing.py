@@ -125,3 +125,20 @@ def test_api_build_in_sort(test_case_name):
     get_json = response.json()
     print(get_json['result'])
     assert get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])
+
+@pytest.mark.parametrize("test_case_name", [("/api/v1/data_grid/China"),
+                                            ("/api/v1/data_grid/Canada"),
+                                            ("/api/v1/data_grid/Israel"),
+                                            ("/api/v1/data_grid/Spain"),
+                                            ("/api/v1/data_grid/France"),])
+def test_api_build_in_sort(test_case_name):
+    api_url = base_url + test_case_name
+
+    #payload = json.dumps(api_json_temp[test_case_name])
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("GET", api_url, headers=headers)
+    get_json = response.json()
+    print(get_json['result'])
+    #assert get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])

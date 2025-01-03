@@ -137,6 +137,27 @@ def user_profile():
          return json.dumps(help_info)
 
 
+@flask_api.route('/data_grid/<album_name>', methods=['GET'])
+def album_table(album_name):
+    if album_name == "all":
+        all_albums = IMAGE_ALBUM.query.all()
+    else:
+        all_albums = IMAGE_ALBUM.query.filter_by(album_name=album_name).all()
+    new_grid_list = []
+
+    for each_line in all_albums:
+        new_grid = {}
+        new_grid["id"] = each_line.id
+        new_grid["name"] = each_line.album_name
+        #new_grid["description"] = each_line.album_description
+        new_grid["count"] = IMAGE_INFO.query.filter_by(img_album=each_line.album_name).count()
+        new_grid_list.append(new_grid)
+    print(new_grid_list)
+    result = {'result': new_grid_list}
+    print(result)
+    return json.dumps(result)
+
+
 
 
 
