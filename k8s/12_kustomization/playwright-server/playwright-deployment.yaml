@@ -15,5 +15,6 @@ spec:
       containers:
         - name: playwright
           image: mcr.microsoft.com/playwright:v1.48.0-jammy
+          command: ["bin/bash","-c","npx -y playwright@1.48.0 run-server --port 3000"]
           ports:
             - containerPort: 3000
