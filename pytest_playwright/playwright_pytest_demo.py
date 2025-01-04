@@ -1,9 +1,10 @@
 from playwright.sync_api import expect, Page, sync_playwright
 import pytest, re
 
-URL = "http://localhost:8080"
+URL = "http://flask-example:8080"
 playwright = sync_playwright().start()
-browser = playwright.chromium.launch(headless=False)
+#browser = playwright.chromium.launch(headless=False)
+browser = playwright.chromium.connect("ws://playwright-service:3000")
 context = browser.new_context()
 page = context.new_page()
 page.goto(URL)

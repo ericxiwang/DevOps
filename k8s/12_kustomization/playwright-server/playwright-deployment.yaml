@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playwright-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: playwright-server
+  template:
+    metadata:
+      labels:
+        app: playwright-server
+    spec:
+      containers:
+        - name: playwright
+          image: mcr.microsoft.com/playwright:v1.48.0-jammy
+          ports:
+            - containerPort: 3000

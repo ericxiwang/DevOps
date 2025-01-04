@@ -1,6 +1,6 @@
 import pytest, requests, json
 
-base_url = "http://localhost:8080"
+base_url = "http://flask-example:8080"
 with open('api_temp.json', 'r') as file:
     api_json_temp = json.load(file)
 
