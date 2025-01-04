@@ -17,7 +17,7 @@ spec:
             runAsUser: 1000
       containers:
         - name: jenkins
-          image: docker.io/ericxiwang/jenkins:042424
+          image: docker.io/ericxiwang/jenkins:010325
           ports:
             - name: http
               containerPort: 8080
