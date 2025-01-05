@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "selenium-service.fullname" . }}
+  name: {{ include "playwright-service.fullname" . }}
   labels:
-    {{- include "selenium-service.labels" . | nindent 4 }}
+    {{- include "playwright-service.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "selenium-service.fullname" . }}
+    name: {{ include "playwright-service.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
