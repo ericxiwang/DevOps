@@ -9,15 +9,15 @@ flask-example:
   image:
     repository: ericxiwang/flask
     pullPolicy: IfNotPresent
-    tag: "042424"
+    tag: "010325"
   service:
     type: ClusterIP
     port: 8080
-  mode: "prod" # "dev" or "prod"
+  mode: "dev" # "dev" or "prod"
 jenkins-server:
   fullnameOverride: jenkins-server
   image: docker.io/ericxiwang/jenkins
-  tag: "042424"
+  tag: "010325"
   jenkins-port: 8080
 selenium-service:
   fullnameOverride: selenium-service
@@ -39,3 +39,12 @@ mysql-service:
   ports:
     containerPort: 3306
   mountpath: /mnt/data
+
+playwright-service:
+  fullnameOverride: playwright-service
+  image:
+    repository: mcr.microsoft.com/playwright
+    pullPolicy: IfNotPresent
+    tag: v1.48.0-jammy
+  ports:
+    containerPort: 3000

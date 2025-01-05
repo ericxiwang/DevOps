@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ericxiwang/flask:032124
+          image: ericxiwang/flask:010325
           volumeMounts:
             - name: flask-config
               mountPath: /opt/app/config.json
