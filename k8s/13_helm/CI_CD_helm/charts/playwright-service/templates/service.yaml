@@ -7,10 +7,9 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: { { .Values.ports.containerPort } }
+    - port: {{ .Values.ports.containerPort }}
       targetPort: http
       protocol: TCP
       name: http
-
   selector:
     {{- include "playwright-service.selectorLabels" . | nindent 4 }}
