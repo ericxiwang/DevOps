@@ -30,6 +30,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["bin/bash","-c","npx -y playwright@1.48.0 run-server --port 3000"]
           ports:
             {{- range $key, $value := .Values.ports }}
             - containerPort: {{ $value }}
