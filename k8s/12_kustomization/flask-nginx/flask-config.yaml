@@ -5,7 +5,7 @@ metadata:
 data:
   config.json: |
     {
-      "app_mode": "prod",
+      "app_mode": "dev",
       "db_type": "mysql",
       "db_url": "mysql-service",
       "db_user": "root",
