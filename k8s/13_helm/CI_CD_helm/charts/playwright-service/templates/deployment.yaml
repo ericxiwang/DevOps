@@ -32,9 +32,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["bin/bash","-c","npx -y playwright@1.48.0 run-server --port 3000"]
           ports:
-            {{- range $key, $value := .Values.ports }}
-            - containerPort: {{ $value }}
-            {{- end }}
+            - name: http
+              containerPort: {{ .Values.ports.containerPort }}
+              protocol: TCP
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
