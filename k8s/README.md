@@ -28,13 +28,16 @@ docker pull ericxiwang/jenkins:tagname
 ### 4.selenium-service
     service name: selenium-service
     service port: 4444
-
+### 5.playwright-service
+    service name: playwright-service
+    service port: 3000
 #### run port forward on k8s
-    kubectl port-forward --address 0.0.0.0 service/jenkins-service（jenkins-server） 8081:8080 & \
-    kubectl port-forward --address 0.0.0.0 service/selenium-service 4444:4444 & \
-    kubectl port-forward --address 0.0.0.0 service/flask-example 8080:8080 &
+    kubectl port-forward --address=0.0.0.0 service/jenkins-service（jenkins-server） 8081:8080 & \
+    kubectl port-forward --address=0.0.0.0 service/selenium-service 4444:4444 & \
+    kubectl port-forward --address=0.0.0.0 service/flask-example 8080:8080 & \
+    kubectl port-forward --address=0.0.0.0 svc/playwright 3000:3000 &
 
-#### run port forward on k8s
+#### k8s sketch map
 ___
 ![top](readmepic.png)
 ___
