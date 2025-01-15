@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+    parameters{
+        choice(choices: ['flask-demo', 'jenkins-server'], name: 'DOCKER_IMAGE_SELECT')
+        string(defaultValue: 'ericxiwang',  name: 'DOCKER_ACCOUNT', trim: true)
+        string(defaultValue: '0101999', name: 'IMAGE_TAG', trim: true)
+     }
+    stages{
+
+        stage("Set image build parameters")
+        {
+            steps{
+                script{
+                    if (params.DOCKER_IMAGE_SELECT == 'flask-demo'){
+                        dockerfile_src = 'python_flask'
+                        image_name = ("${params.DOCKER_ACCOUNT}"+"/"+"flask")
+                    }
+                    else if(params.DOCKER_IMAGE_SELECT == 'jenkins-server'){
+                        dockerfile_src = 'python_robot_framework'
+                        image_name = ("${params.DOCKER_ACCOUNT}"+"/"+"jenkins")
+                    }
+                    else{
+                        echo "nothing to run"
+                    }
+                    echo "${dockerfile_src}"
+                    echo "${image_name}"
+                }
+            }
+        }
+
+
+        stage('Get code from Github') {
+            steps{
+                checkout(
+                        [$class: 'GitSCM', branches: [[name: '*/master']],
+                         doGenerateSubmoduleConfigurations: false,
+                         extensions: [],
+                         submoduleCfg: [],
+                         userRemoteConfigs: [[url: 'https://github.com/ericxiwang/DevOps.git']]]
+                )
+            }
+        }
+
+        stage('build docker image') {
+
+            steps {
+                script {
+                        build_path = ("${WORKSPACE}"+"/"+"${dockerfile_src}")
+                }
+                echo "${build_path}"
+                dir("${build_path}"){
+                    sh "docker build -t ${image_name}:${params.IMAGE_TAG} ."
+                }
+            }
+
+        }
+
+    }
+
+}
