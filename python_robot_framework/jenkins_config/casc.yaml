@@ -1,0 +1,16 @@
+jenkins:
+  systemMessage: "Jenkins Server for k8s autotest cluster demo"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: ${JENKINS_ADMIN_ID}
+         password: ${JENKINS_ADMIN_PASSWORD}
+    authorizationStrategy:
+      globalMatrix:
+        permissions:
+          - "Overall/Administer:admin"
+          - "Overall/Read:authenticated"
+unclassified:
+  location:
+    url: http://jenkins-server:8080/
