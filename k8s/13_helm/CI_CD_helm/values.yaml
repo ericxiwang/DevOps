@@ -17,7 +17,7 @@ flask-example:
 jenkins-server:
   fullnameOverride: jenkins-server
   image: docker.io/ericxiwang/jenkins
-  tag: "010325"
+  tag: "011525"
   jenkins-port: 8080
 selenium-service:
   fullnameOverride: selenium-service
