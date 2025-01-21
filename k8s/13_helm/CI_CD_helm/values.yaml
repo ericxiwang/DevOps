@@ -24,7 +24,7 @@ selenium-service:
   image: 
     repository: selenium/standalone-chrome
     pullPolicy: IfNotPresent
-    tag: 130.0
+    tag: latest
   ports:
     port-1: 4444
     port-2: 4443
