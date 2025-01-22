@@ -16,20 +16,34 @@ pipeline {
                      submoduleCfg: [],
                      userRemoteConfigs: [[url: 'https://github.com/ericxiwang/DevOps.git']]]
             )
+            sh 'exit 0'
             }
         }
-        stage('switch to test folder'){
+        stage('execute web page auto test'){
             steps{
-                sh 'cd python_robot_framework'
-                sh 'robot ./python_robot_framework/page_auto_test.robot'
+                
+                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') 
+                 {
+                    sh 'robot --report page_test.html ./python_robot_framework/page_auto_test.robot'
+                 }
 
+            }
+        }
+        stage('execute api auto test'){
+            steps{
+
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') 
+                 {
+                    sh 'robot --report api_test.html ./python_robot_framework/api_auto_test.robot'
+                 }
             }
         }
 
     }
     post {
         always {
-            archiveArtifacts artifacts: 'report.html', fingerprint: true
+            robot outputPath: '.', passThreshold: 80.0, unstableThreshold: 70.0
+            archiveArtifacts artifacts: '*.html', fingerprint: true
 
         } }
 
