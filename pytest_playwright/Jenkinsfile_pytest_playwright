@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+    stages{
+        stage('test start here'){
+            steps{
+                echo 'pytest+playwright test suite start'
+            }
+        }
+
+        stage('Get code from Github') {
+            steps{
+            checkout(
+                    [$class: 'GitSCM', branches: [[name: '*/master']],
+                     doGenerateSubmoduleConfigurations: false,
+                     extensions: [],
+                     submoduleCfg: [],
+                     userRemoteConfigs: [[url: 'https://github.com/ericxiwang/DevOps.git']]]
+            )
+            }
+        }
+        stage('execute web page auto test'){
+            steps{
+                 script {
+                        build_path = ("${WORKSPACE}"+"/"+"pytest_playwright")
+                }
+
+                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+                 {
+                    dir("${build_path}")
+                    {
+                        sh 'python3 -m pytest -v -rA  -s playwright_pytest_demo.py --junitxml=web-test.xml'
+                    }
+
+                 }
+
+            }
+        }
+        stage('execute api auto test'){
+            steps{
+
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+                 {
+                    dir("${build_path}")
+                    {
+                        sh 'python3 -m pytest -v -rA  -s pytest_api_testing.py --junitxml=api-test.xml'
+                    }
+                 }
+            }
+        }
+
+    }
+    post {
+        always {
+           // robot outputPath: '.', passThreshold: 80.0, unstableThreshold: 70.0
+            archiveArtifacts artifacts: 'pytest_playwright/*.xml', fingerprint: true
+
+        } }
+}
