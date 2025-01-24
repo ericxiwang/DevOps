@@ -1,6 +1,6 @@
 - hosts: ansible-host
   become: yes
   roles:
-    - flask-mysql 
+    #- flask-mysql
     #- k8s-init
-    #- test
+    - linux-sys-info
