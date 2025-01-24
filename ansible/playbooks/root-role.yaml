@@ -1,3 +1,4 @@
+---
 - hosts: ansible-host
   become: yes
   roles:
