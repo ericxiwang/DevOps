@@ -1,5 +1,5 @@
 ---
-- hosts: ansible-host
+- hosts: all
   become: true
   tasks:
     - name: Gather system information
