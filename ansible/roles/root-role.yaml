@@ -1,0 +1,6 @@
+- hosts: ansible-host
+  become: yes
+  roles:
+    #- flask-mysql
+    #- k8s-init
+    - linux-sys-info

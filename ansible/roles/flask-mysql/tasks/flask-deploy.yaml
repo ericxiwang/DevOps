@@ -1,0 +1,42 @@
+- name: pull python code from github
+  git: 
+    repo: https://github.com/ericxiwang/DevOps.git
+    dest: /opt
+  tags:
+    - update
+- name: install pip
+  apt:
+    name: python3-pip
+    state: latest
+- name: pip update
+  shell: |
+    pip3 install --upgrade pip
+- name: manually setup python venv
+  pip:
+    virtualenv: /opt/python_flask/new_instance
+    virtualenv_python: python3
+- name: activate current venv
+  shell: |
+    source /opt/python_flask/new_instance/bin/activate
+- name: install flask dependences
+  pip:
+    name:
+      - Flask
+      - Flask-SQLAlchemy
+      - Jinja2
+      - SQLAlchemy
+      - Flask-Login
+      - gunicorn
+  virtualenv: /opt/python_flask/new_instance
+- name: copy systemd to target folder
+  copy:
+    src: flask-demo.service
+    dest: /etc/systemd/system
+- name: start flask and gunicorn daemon
+  systemd:
+    state: started
+    name: flask-demo
+    daemon_reload: yes
+    enabled: yes
+
+-
