@@ -1,6 +1,4 @@
 - hosts: all
   become: yes
   roles:
-    #- flask-mysql
-    #- k8s-init
-    - role: 'roles/linux-sys-info'
+    - 'roles/linux-sys-info'
