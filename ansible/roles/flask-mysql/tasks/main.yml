@@ -1,6 +1,0 @@
-#- name: include nginx setup
-#  include_tasks: nginx-deploy.yaml
-#- name: include flask setup
-#  include_tasks: flask-deploy.yaml
-- name: include mysql db setup
-  include_tasks: mysql-deploy.yaml

@@ -1,9 +1,0 @@
----
-- name: copy sql
-  copy:
-    src: init.sql
-    dest: /opt/init.sql
-  listen: "init_db"
-- name: import example database
-  mysql_db: name=demo state=import target=/opt/init.sql
-  listen: "init_db"
